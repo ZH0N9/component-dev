@@ -1,0 +1,52 @@
+$btn-prefix:".built-in-btn";
+
+#{$btn-prefix}{
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    white-space: nowrap;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    border: 0;
+    border-radius: 3em;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+     //type
+     &-primary{
+        color: white;
+        background-color: #ff9a15;
+    }
+    &-normal{
+        color: #333;
+        background-color: transparent;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+    }
+    &-dashed{
+        background-color: #fff;
+        border: 1px dashed #d9d9d9;
+    }
+    &-text{
+        background-color: transparent;
+    }
+    // size 
+    &-lg{
+        font-size: 12px;
+        padding: 10px 16px;
+    }
+    &-md{
+        font-size: 14px;
+        padding: 11px 20px;
+    }
+    &-sm{
+        font-size: 12px;
+        padding: 10px 16px;
+    }
+}
+
