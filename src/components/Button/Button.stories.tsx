@@ -10,6 +10,10 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
+    size: {
+      options: ['large','medium','small'],
+      control: { type: 'radio' },
+    },
   },
   decorators:[
     (Story)=> {
@@ -25,10 +29,24 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 export const Basic: Story = {
+  render: ()=> {
+    return (
+      <div style={{display: 'flex', gap:'8px'}}>
+        <Button type='primary'>Primary</Button>
+        <Button type='normal'>Normal</Button>
+        <Button type='dashed'>Dashed</Button>
+        <Button type='text'>Text</Button>
+      </div>
+    )
+  }
+};
+export const Size: Story = {
+  args:{
+    size: 'medium'
+  },
   render: ()=> {
     return (
       <div style={{display: 'flex', gap:'8px'}}>

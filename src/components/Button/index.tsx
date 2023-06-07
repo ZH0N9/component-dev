@@ -5,6 +5,9 @@ export const Button = (props: buttonProps)=>{
     const {
         type = 'primary',
         size = 'medium',
+        disabled = false,
+        loading = false,
+        block = false,
         onClick,
         onBlur,
         children, 
@@ -16,11 +19,12 @@ export const Button = (props: buttonProps)=>{
         [style[`${prefixClass}`]]:true,
         [style[`${prefixClass}-${sizeClassMap[size]}`]]:!!size,
         [style[`${prefixClass}-${typeClassMap[type]}`]]:!!type,
+        [style[`${prefixClass}-block`]]: !!block,
         [className as string]:!!className
     });
 
     return (
-        <button className={cls} onClick={onClick} onBlur={onBlur} {...restProps}>
+        <button className={cls} onClick={onClick} onBlur={onBlur} disabled={disabled} {...restProps}>
             {children}
         </button>
     )

@@ -1,4 +1,27 @@
 $btn-prefix:".built-in-btn";
+@mixin innerAnchorTag(){
+    a{
+        text-decoration: none;
+    }
+    >a:only-child{
+        color: currentColor;
+        &::after{
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: transparent;
+            content: '';
+        }
+    }
+}
+
+@mixin btn-type($color, $border, $background){
+    color: $color;
+    border-color: $border;
+    background-color: $background;
+}
 
 #{$btn-prefix}{
     position: relative;
@@ -18,22 +41,25 @@ $btn-prefix:".built-in-btn";
     -ms-user-select: none;
     user-select: none;
     touch-action: manipulation;
-     //type
-     &-primary{
-        color: white;
-        background-color: #ff9a15;
+    @include innerAnchorTag();
+
+    &[disabled],
+    &[disabled]:hover,
+    &[disabled]:focus,
+    &[disabled]:active {
+        cursor: not-allowed;
+        touch-action:none;
+        border-color: #d9d9d9;
+        color: rgba(0,0,0,.25);
+        background-color: rgba(0,0,0,.04);
+        box-shadow: none;
+        >a{
+            cursor: not-allowed;
+        }
     }
-    &-normal{
-        color: #333;
-        background-color: transparent;
-        box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
-    }
-    &-dashed{
-        background-color: #fff;
-        border: 1px dashed #d9d9d9;
-    }
-    &-text{
-        background-color: transparent;
+    // block
+    &-block{
+        width: 100%;
     }
     // size 
     &-lg{
@@ -48,5 +74,47 @@ $btn-prefix:".built-in-btn";
         font-size: 12px;
         padding: 10px 16px;
     }
+     //type
+     &-primary{
+        color: white;
+        background-color: #ff9a15;
+        &:hover,
+        &:focus{
+            background-color: #ffbd66;
+        }
+    }
+    &-normal{
+        color: #333;
+        background-color: transparent;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+        &:hover,
+        &:focus{
+            box-shadow: #ff9a15 0px 0px 0px 1px inset;
+            color: #ff9a15;
+        }
+    }
+    &-dashed{
+        background-color: #fff;
+        border: 1px dashed #d9d9d9;
+        &:hover,
+        &:focus{
+            border-color: #ff9a15;
+            color: #ff9a15;
+        }
+    }
+    &-text{
+        background-color: transparent;
+        &:hover,
+        &:focus{
+            color: #ff9a15;
+        }
+        &[disabled],
+        &[disabled]:hover,
+        &[disabled]:focus,
+        &[disabled]:active {
+            background-color:transparent;
+        }
+    }
+    
 }
 

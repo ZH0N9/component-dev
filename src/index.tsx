@@ -9,7 +9,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Button type="normal">Button</Button>
+    <Button type="normal" disabled><a href="www.baidu.com">dddd</a></Button>
+    <Button type="primary" disabled>ddd</Button>
+    <Button type="text" disabled>ddd</Button>
+    <Button type="dashed" disabled>ddd</Button>
+    <div style={{width: '100px'}}>
+      <Button block>test</Button>
+    </div>
   </React.StrictMode>
 );
 
