@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { Button } from './components/Button';
+import { Icon } from './components/Icon';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -16,6 +17,7 @@ root.render(
     <div style={{width: '100px'}}>
       <Button block>test</Button>
     </div>
+    <Icon name='close'/>
   </React.StrictMode>
 );
 
