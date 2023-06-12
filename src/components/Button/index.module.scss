@@ -16,15 +16,38 @@ $btn-prefix:".built-in-btn";
         }
     }
 }
+@mixin loading(){
+    &.built-in-btn-loading{
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            cursor: not-allowed;
+            touch-action:none;
+            border-color: #d9d9d9;
+            color: rgba(0,0,0,.25);
+            background-color: rgba(0,0,0,.04);
+            box-shadow: none;
+            >a{
+                cursor: not-allowed;
+            }
+        }
+    }
+}
 @mixin disabled(){
-    cursor: not-allowed;
-    touch-action:none;
-    border-color: #d9d9d9;
-    color: rgba(0,0,0,.25);
-    background-color: rgba(0,0,0,.04);
-    box-shadow: none;
-    >a{
+    &[disabled],
+    &[disabled]:hover,
+    &[disabled]:focus,
+    &[disabled]:active {
         cursor: not-allowed;
+        touch-action:none;
+        border-color: #d9d9d9;
+        color: rgba(0,0,0,.25);
+        background-color: rgba(0,0,0,.04);
+        box-shadow: none;
+        >a{
+            cursor: not-allowed;
+        }
     }
 }
 @mixin btn-type($color, $border, $background){
@@ -53,22 +76,10 @@ $btn-prefix:".built-in-btn";
     user-select: none;
     touch-action: manipulation;
     @include innerAnchorTag();
-
-    &[disabled],
-    &[disabled]:hover,
-    &[disabled]:focus,
-    &[disabled]:active {
-       @include disabled();
-    }
+    // disabled
+    @include disabled();
     // loading
-    &-loading{
-        &,
-        &:hover,
-        &:focus,
-        &:active{
-            @include disabled();
-        }
-    }
+    @include loading();
     // block
     &-block{
         width: 100%;

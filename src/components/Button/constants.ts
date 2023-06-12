@@ -1,5 +1,4 @@
 import { ReactNode, CSSProperties } from "react";
-
 export interface buttonProps extends React.HTMLAttributes<HTMLButtonElement>{
      // button built-in style
      type?: 'normal'| 'primary' | 'dashed' | 'text',
