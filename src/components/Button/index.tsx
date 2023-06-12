@@ -1,4 +1,5 @@
 import { buttonProps, prefixClass, sizeClassMap,typeClassMap } from "./constants";
+import { Icon } from "../Icon";
 import style from "./index.module.scss";
 import classNames from "classnames";
 export const Button = (props: buttonProps)=>{
@@ -19,12 +20,14 @@ export const Button = (props: buttonProps)=>{
         [style[`${prefixClass}`]]:true,
         [style[`${prefixClass}-${sizeClassMap[size]}`]]:!!size,
         [style[`${prefixClass}-${typeClassMap[type]}`]]:!!type,
-        [style[`${prefixClass}-block`]]: !!block,
+        [style[`${prefixClass}-block`]]: block,
+        [style[`${prefixClass}-loading`]]: loading,
         [className as string]:!!className
     });
 
     return (
         <button className={cls} onClick={onClick} onBlur={onBlur} disabled={disabled} {...restProps}>
+            {loading && <Icon name='loading' spin/>}
             {children}
         </button>
     )

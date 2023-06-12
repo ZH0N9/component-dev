@@ -20,7 +20,15 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
+  // 模块名到基于 baseUrl的路径映射的列表。
+  "paths": {
+    "@/*": ["src/*"],
+    "@comp/*": ["src/components/*"],
+  },
   "include": [
-    "src"
+    "src",
+    "src/**/*.ts",
+		"src/**/*.d.ts",
+		"src/**/*.tsx"
   ]
 }

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { Button } from './components/Button';
 import { Icon } from './components/Icon';
+import { Tag } from './components/Tag';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -11,13 +12,15 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Button type="normal" disabled><a href="www.baidu.com">dddd</a></Button>
-    <Button type="primary" disabled>ddd</Button>
+    <Button type="primary" loading>ddd</Button>
     <Button type="text" disabled>ddd</Button>
     <Button type="dashed" disabled>ddd</Button>
     <div style={{width: '100px'}}>
       <Button block>test</Button>
     </div>
-    <Icon name='close'/>
+    <Icon name='close' className='test-class'/>
+    <Icon name='loading' spin/>
+    <Tag color='#f50' icon={<Icon name='warning'></Icon>}><div>dddd</div></Tag>
   </React.StrictMode>
 );
 

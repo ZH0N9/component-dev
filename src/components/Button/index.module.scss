@@ -16,7 +16,17 @@ $btn-prefix:".built-in-btn";
         }
     }
 }
-
+@mixin disabled(){
+    cursor: not-allowed;
+    touch-action:none;
+    border-color: #d9d9d9;
+    color: rgba(0,0,0,.25);
+    background-color: rgba(0,0,0,.04);
+    box-shadow: none;
+    >a{
+        cursor: not-allowed;
+    }
+}
 @mixin btn-type($color, $border, $background){
     color: $color;
     border-color: $border;
@@ -26,6 +36,7 @@ $btn-prefix:".built-in-btn";
 #{$btn-prefix}{
     position: relative;
     display: inline-flex;
+    gap: 4px;
     align-items: center;
     justify-content: center;
     line-height: 1;
@@ -47,14 +58,15 @@ $btn-prefix:".built-in-btn";
     &[disabled]:hover,
     &[disabled]:focus,
     &[disabled]:active {
-        cursor: not-allowed;
-        touch-action:none;
-        border-color: #d9d9d9;
-        color: rgba(0,0,0,.25);
-        background-color: rgba(0,0,0,.04);
-        box-shadow: none;
-        >a{
-            cursor: not-allowed;
+       @include disabled();
+    }
+    // loading
+    &-loading{
+        &,
+        &:hover,
+        &:focus,
+        &:active{
+            @include disabled();
         }
     }
     // block
@@ -82,6 +94,7 @@ $btn-prefix:".built-in-btn";
         &:focus{
             background-color: #ffbd66;
         }
+        
     }
     &-normal{
         color: #333;
