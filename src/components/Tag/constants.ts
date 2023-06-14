@@ -9,7 +9,6 @@ export interface tagProps{
     closeIcon?:ReactNode,
     children?:ReactNode,
     style?:CSSProperties,
-    visible?:boolean,
     onClose?: (e: NewClickEvent)=>void
     onClick?: React.MouseEventHandler<HTMLButtonElement>
 }

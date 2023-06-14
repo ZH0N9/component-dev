@@ -21,6 +21,7 @@ root.render(
     <Icon name='close' className='test-class'/>
     <Icon name='loading' spin/>
     <Tag color='#f50' icon={<Icon name='warning'></Icon>}><div>dddd</div></Tag>
+    <Tag color='cyan' onClick={()=> {console.log('d')}}closable><div>dddd</div></Tag>
   </React.StrictMode>
 );
 
