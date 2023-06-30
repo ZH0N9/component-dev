@@ -57,6 +57,11 @@ $icon-prefix: '.built-in-tag';
     @include icons(rgba(0, 0, 0, 0.45));
     @include noBorder();
     @include clickable();
+    // anchor
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
     // defined color
     &-blue{
         @include definedColor(#0958d9,#91caff,#e6f4ff );

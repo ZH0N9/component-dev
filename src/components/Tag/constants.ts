@@ -1,7 +1,7 @@
 import { ReactNode, CSSProperties } from "react";
 export interface tagProps{
-
-    className?:string
+    className?:string,
+    visible?:boolean,
     color?:string,
     bordered?: boolean,
     icon?: ReactNode,
@@ -9,7 +9,7 @@ export interface tagProps{
     closeIcon?:ReactNode,
     children?:ReactNode,
     style?:CSSProperties,
-    onClose?: (e: NewClickEvent)=>void
-    onClick?: React.MouseEventHandler<HTMLButtonElement>
+    onClose?: (e: NewClickEvent )=>void
+    onClick?: (e: NewClickEvent) => void
 }
 export const prefixClass = 'built-in-tag';

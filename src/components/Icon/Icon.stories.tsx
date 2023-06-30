@@ -27,6 +27,9 @@ export const Basic: Story = {
     return (
       <div style={{display: 'flex', gap:'8px'}}>
         <Icon name='loading' />
+        <Icon name='close' />
+        <Icon name='delete' />
+        <Icon name='warning' />
       </div>
     )
   }

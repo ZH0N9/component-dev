@@ -24,9 +24,40 @@ export default meta;
 type Story = StoryObj<typeof Tag>;
 export const Basic: Story = {
   render: ()=> {
+    const preventDefault = (e:any)=>{
+      e.preventDefault();
+    }
     return (
       <div style={{display: 'flex', gap:'8px'}}>
+          <Tag>Tag</Tag>
+          <Tag><a href="https://www.google.com.hk/">Link</a></Tag>
+          <Tag closable>Closable</Tag>
+          <Tag visible closable>Visible</Tag>
+          <Tag closable onClose={preventDefault}>Prevent default</Tag>
       </div>
     )
   }
 };
+export const ColorTags : Story = {
+  render: ()=>{
+    const preSetColors = ['blue','cyan','green','red','orange','purple'];
+    const customColors = ['#f50', '#2db7f5', '#87d068', '#108ee9']
+    return (
+      <div style={{display:'flex', flexDirection:'column', gap: '8px'}}>
+        <div style={{fontWeight: 600, fontSize:'14px'}}>Presets:</div>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          {preSetColors.map(color => {
+            return <Tag color={color}>{color}</Tag>;
+          })}
+        </div>
+        <hr/>
+        <div style={{fontWeight: 600, fontSize:'14px'}}>Custom:</div>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          {customColors.map(color => {
+            return <Tag color={color}>{color}</Tag>;
+          })}
+        </div>
+      </div>
+    )
+  }
+}

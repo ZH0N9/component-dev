@@ -2,13 +2,12 @@ import classNames from "classnames"
 import { prefixClass, iconProps } from "./constants"
 import style from "./index.module.scss";
 // import all svg in src/icon/svg
-const importAll = (requireContext: __WebpackModuleApi.RequireContext) =>
-requireContext.keys().forEach(requireContext);
+const importAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().forEach(requireContext);
 try {
 // 导入src/icons/svg下的所有以.svg结尾的文件
-importAll(require.context('../../icons/svg', true, /\.svg$/))
+    importAll(require.context('../../icons/svg', true, /\.svg$/))
 } catch (error) {
-console.log(error)
+    console.log(error)
 }
 
 export const Icon = (props: iconProps)=>{
