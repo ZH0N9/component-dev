@@ -1,0 +1,10 @@
+import React from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import {{componentName}} from '.';
+
+describe('{{componentName}} Component',()=>{
+    test('Render the Component', ()=>{
+        render(<{{componentName}}>{{componentName}}</{{componentName}}>);
+        expect(screen.getByText(/{{componentName}}/)).toBeInTheDocument();
+    });
+})
