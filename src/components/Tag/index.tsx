@@ -60,7 +60,7 @@ export const Tag = (props: tagProps)=>{
             > 
                 { closeIcon? closeIcon : <Icon name="close" />}
             </span>)
-    }, [closeIcon, onClose])
+    }, [propVisible, closeIcon, onClose])
     return (
         visible ?
         <span className={cls} style={definedStyles} onClick={onClick} >

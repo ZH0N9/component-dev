@@ -1,0 +1,31 @@
+$radio-prefix:".built-in-radio";
+#{$radio-prefix}-wrapper{
+    position: relative;
+    font-size: 14px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: baseline;
+    margin-inline-start: 0;
+    margin-inline-end: 8px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.88);
+    list-style: none;
+    cursor: pointer;
+
+    #{$radio-prefix}{
+        position: relative;
+        &-inner{
+            display: block;
+            width: 16px;
+            height: 16px;
+        }
+        input{
+            position: absolute;
+        }
+    }
+
+}
+

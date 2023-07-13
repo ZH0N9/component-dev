@@ -1,8 +1,8 @@
 import { ReactNode, CSSProperties } from "react";
-export interface inputProps extends React.HTMLAttributes<HTMLDivElement>{
+export interface radioProps extends React.HTMLAttributes<HTMLDivElement>{
      children?: ReactNode,
      className?: string,
      style?: CSSProperties,
 }
 
-export const prefixClass = 'built-in-input';
+export const prefixClass = 'built-in-radio';

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Input from './index';
+import Radio from './index';
 
-const meta: Meta<typeof Input> = {
-  title: 'Example/Input',
-  component: Input,
+const meta: Meta<typeof Radio> = {
+  title: 'Example/Radio',
+  component: Radio,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
@@ -23,7 +23,7 @@ const meta: Meta<typeof Input> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Input >;
+type Story = StoryObj<typeof Radio >;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
