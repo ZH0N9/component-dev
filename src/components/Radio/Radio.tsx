@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
+import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { radioProps, prefixClass } from "./constants";
 import style from "./index.module.scss";
 import classNames from "classnames";
 export const Radio = (props: radioProps)=>{
     const {
+        value,
         children, 
         className,
+        defaultChecked = false,
         checked:propChecked ,
+        disabled:propDisabled,
+        onChange,
         ...restProps
     } = props;
     useEffect(()=>{
@@ -14,9 +18,18 @@ export const Radio = (props: radioProps)=>{
             setChecked(propChecked);
         }
     },[propChecked])
-    const [checked, setChecked] = useState<Boolean>(!!propChecked)
+    useEffect(()=>{
+        if(typeof propDisabled === 'boolean'){
+            setDisabled(propDisabled);
+        }
+    },[propDisabled])
+
+    const [checked, setChecked] = useState<Boolean>(!!defaultChecked)
+    const [disabled, setDisabled] = useState<Boolean>(!!propDisabled);
+    const inputRef = useRef(null);
     const wrapperCls = classNames({
-        [style[`${prefixClass}-wrapper`]]:true
+        [style[`${prefixClass}-wrapper`]]:true,
+        [style[`${prefixClass}-wrapper-disabled`]]:disabled
     });
     const radioCls = classNames({
         [style[`${prefixClass}`]]:true,
@@ -25,15 +38,25 @@ export const Radio = (props: radioProps)=>{
     });
     const radioInnerCls = classNames({
         [style[`${prefixClass}-inner`]]:true
-    })
+    });
 
+    const handleInputClick: MouseEventHandler = (event)=>{
+        if(disabled || checked){
+            return;
+        }
+        setChecked(true);
+        if(inputRef.current){
+            event.target = inputRef.current
+        }
+        onChange && typeof onChange === 'function' && onChange(event);
+    };
     return (
         <label className={wrapperCls}>
-            <span className={radioCls} {...restProps}>
-                <input type='radio' />
+            <span className={radioCls} onClick={handleInputClick}{...restProps}>
+                <input type='radio' value={value} ref={inputRef}/>
                 <span className={radioInnerCls}></span>
             </span>
-            <span>{children}</span>
+            {children && <span>{children}</span>}
         </label>
     )
 }

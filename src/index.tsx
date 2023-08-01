@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Button type="normal" disabled><a href="www.baidu.com">dddd</a></Button>
-    <Radio/>
+    <Radio disabled={true} defaultChecked={true}>Radio</Radio>
     <Button type="primary" loading>ddd</Button>
     <Button type="text" disabled>ddd</Button>
     <Button type="dashed" disabled>ddd</Button>
