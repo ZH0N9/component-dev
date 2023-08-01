@@ -46,6 +46,7 @@ $btn-prefix:".built-in-btn";
         background-color: rgba(0,0,0,.04);
         box-shadow: none;
         >a{
+            pointer-events: none;
             cursor: not-allowed;
         }
     }
