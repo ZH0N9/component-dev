@@ -2,6 +2,7 @@ import { buttonProps, prefixClass, sizeClassMap,typeClassMap } from "./constants
 import { Icon } from "../Icon";
 import style from "./index.module.scss";
 import classNames from "classnames";
+import { MouseEventHandler } from "react";
 export const Button = (props: buttonProps)=>{
     const {
         type = 'primary',
@@ -25,8 +26,16 @@ export const Button = (props: buttonProps)=>{
         [className as string]:!!className
     });
 
+    const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event)=>{
+        if(disabled){
+            event.preventDefault();
+            return;
+        }
+        onClick && typeof onClick === 'function' && onClick(event);
+    }
+
     return (
-        <button className={cls} onClick={onClick} onBlur={onBlur} disabled={disabled} {...restProps}>
+        <button className={cls} onClick={handleClick} onBlur={onBlur} disabled={disabled} {...restProps}>
             {loading && <Icon name='loading' spin/>}
             {children}
         </button>

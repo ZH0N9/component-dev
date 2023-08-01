@@ -1,0 +1,13 @@
+import { ReactNode, CSSProperties, FormEvent } from "react";
+export interface radioProps extends React.HTMLAttributes<HTMLInputElement>{
+     value?:string,
+     children?: ReactNode,
+     className?: string,
+     style?: CSSProperties,
+     checked?: boolean,
+     disabled?:boolean,
+     defaultChecked?:boolean
+     onChange?: (event: FormEvent) => void
+}
+
+export const prefixClass = 'built-in-radio';

@@ -4,6 +4,7 @@ import './index.css';
 import { Button } from './components/Button';
 import { Icon } from './components/Icon';
 import { Tag } from './components/Tag';
+import Radio from './components/Radio';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -12,6 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Button type="normal" disabled><a href="www.baidu.com">dddd</a></Button>
+    <Radio disabled={true} defaultChecked={true}>Radio</Radio>
     <Button type="primary" loading>ddd</Button>
     <Button type="text" disabled>ddd</Button>
     <Button type="dashed" disabled>ddd</Button>
