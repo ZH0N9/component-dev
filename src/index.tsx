@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { Button } from './components/Button';
@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Button type="normal" disabled><a href="www.baidu.com">dddd</a></Button>
-    <Radio disabled={true} defaultChecked={true}>Radio</Radio>
+    <Radio  defaultChecked={false} checked={false} onChange={(e)=>{console.log(e);}}>Radio</Radio>
     <Button type="primary" loading>ddd</Button>
     <Button type="text" disabled>ddd</Button>
     <Button type="dashed" disabled>ddd</Button>

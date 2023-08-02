@@ -4,6 +4,7 @@ export interface radioProps extends React.HTMLAttributes<HTMLInputElement>{
      children?: ReactNode,
      className?: string,
      style?: CSSProperties,
+     // when checked = false, radio cannot be checked by click
      checked?: boolean,
      disabled?:boolean,
      defaultChecked?:boolean

@@ -9,6 +9,21 @@ const meta: Meta<typeof Radio> = {
   tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
+    value:{
+      control: {type:'string'}
+    },
+    className:{
+      control: {type:'string'}
+    },
+    checked:{
+      control: {type: 'boolean'}
+    },
+    disabled:{
+      control: {type: 'boolean'}
+    },
+    defaultChecked:{
+      control: {type: 'boolean'}
+    }
   },
   decorators:[
     (Story)=> {
@@ -35,6 +50,20 @@ export const Basic: Story = {
     };
     return (
       <div style={wrapperStyle}>
+        <Radio defaultChecked={false}>Normal Radio</Radio>
+      </div>
+    )
+  }
+};
+export const Disabled: Story = {
+  render: ()=> {
+    const wrapperStyle = {
+        display: 'flex',
+        gap:'8px'
+    };
+    return (
+      <div style={wrapperStyle}>
+        <Radio disabled={true}>Disabled Radio</Radio>
       </div>
     )
   }

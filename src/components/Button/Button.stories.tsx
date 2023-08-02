@@ -14,6 +14,15 @@ const meta: Meta<typeof Button> = {
       options: ['large','medium','small'],
       control: { type: 'radio' },
     },
+    loading:{
+      control: {type: 'boolean'}
+    },
+    disabled:{
+      control: {type: 'boolean'}
+    },
+    block:{
+      control: {type: 'boolean'}
+    }
   },
   decorators:[
     (Story)=> {
