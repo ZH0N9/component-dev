@@ -40,8 +40,11 @@ export const Radio = (props: radioProps)=>{
         [style[`${prefixClass}-inner`]]:true
     });
 
-    const handleInputClick: MouseEventHandler = (event)=>{
-        if(disabled || checked){
+    const handleClick: MouseEventHandler = (event)=>{
+        if(disabled || checked ){
+            return;
+        }
+        if(('checked' in props)){
             return;
         }
         setChecked(true);
@@ -52,7 +55,7 @@ export const Radio = (props: radioProps)=>{
     };
     return (
         <label className={wrapperCls}>
-            <span className={radioCls} onClick={handleInputClick}{...restProps}>
+            <span className={radioCls} onClick={handleClick}{...restProps}>
                 <input type='radio' value={value} ref={inputRef}/>
                 <span className={radioInnerCls}></span>
             </span>
