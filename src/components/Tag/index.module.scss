@@ -1,102 +1,103 @@
 $icon-prefix: '.built-in-tag';
 
-@mixin icons($color){
-    .icon{
-        display: inline-flex;
-        margin-right: 4px;
-        svg{
-            fill: $color;
-        }
-    }
-    .closeIcon{
-        display: inline-flex;
-        margin-left: 2px;
-        cursor: pointer;
-        svg{
-            fill: $color;
-        }
-    }
-}
-@mixin noBorder(){
-    &.built-in-tag-borderless{
-        border-color: transparent;
-    }
-}
-@mixin clickable(){
-    &.built-in-tag-clickable{
-        cursor: pointer;
-    }
-}
-@mixin definedColor($color, $border, $background){
-    color: $color;
-    border-color: $border;
-    background-color: $background;
-}
-#{$icon-prefix}{
+@mixin icons($color) {
+  .icon {
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    color: rgba(0, 0, 0, 0.88);
-    font-size: 12px;
-    font-weight: 500;
-    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
-    line-height: 20px;
-    list-style: none;
-    height: auto;
-    margin-inline-end: 8px;
-    padding-inline: 7px;
-    white-space: nowrap;
-    background: rgba(0, 0, 0, 0.02);
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
-    opacity: 1;
-    transition: all 0.2s;
-    @include icons(rgba(0, 0, 0, 0.45));
+    margin-right: 4px;
+    svg {
+      fill: $color;
+    }
+  }
+  .closeIcon {
+    display: inline-flex;
+    margin-left: 2px;
+    cursor: pointer;
+    svg {
+      fill: $color;
+    }
+  }
+}
+@mixin noBorder() {
+  &.built-in-tag-borderless {
+    border-color: transparent;
+  }
+}
+@mixin clickable() {
+  &.built-in-tag-clickable {
+    cursor: pointer;
+  }
+}
+@mixin definedColor($color, $border, $background) {
+  color: $color;
+  border-color: $border;
+  background-color: $background;
+}
+#{$icon-prefix} {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  line-height: 20px;
+  list-style: none;
+  height: auto;
+  margin-inline-end: 8px;
+  padding-inline: 7px;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  opacity: 1;
+  transition: all 0.2s;
+  @include icons(rgba(0, 0, 0, 0.45));
+  @include noBorder();
+  @include clickable();
+  // anchor
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  // defined color
+  &-blue {
+    @include definedColor(#0958d9, #91caff, #e6f4ff);
+    @include icons(#0958d9);
     @include noBorder();
-    @include clickable();
-    // anchor
-    a{
-        text-decoration: none;
-        color: inherit;
-    }
-    // defined color
-    &-blue{
-        @include definedColor(#0958d9,#91caff,#e6f4ff );
-        @include icons(#0958d9);
-        @include noBorder();
-    }
-    &-cyan{
-        @include definedColor(#08979c,#87e8de,#e6fffb );
-        @include icons(#08979c);
-        @include noBorder();
-    }
-    &-green{
-        @include definedColor(#389e0d,#b7eb8f,#f6ffed);
-        @include icons(#389e0d);
-        @include noBorder();
-    }
-    &-red{
-        @include definedColor(#cf1322,#ffa39e,#fff1f0);
-        @include icons(#cf1322);
-        @include noBorder();
-    }
-    &-orange{
-        @include definedColor(#d46b08,#ffd591,#fff7e6);
-        @include icons(#d46b08);
-        @include noBorder();
-    }
-    &-purple{
-        @include definedColor(#531dab,#d3adf7,#f9f0ff);
-        @include icons(#531dab);
-        @include noBorder();
-    }
-    // with customerized color
-    &-with-color{
-        color: #fff;
-        border-color: transparent;
-        @include icons(#fff);
-    }
+  }
+  &-cyan {
+    @include definedColor(#08979c, #87e8de, #e6fffb);
+    @include icons(#08979c);
+    @include noBorder();
+  }
+  &-green {
+    @include definedColor(#389e0d, #b7eb8f, #f6ffed);
+    @include icons(#389e0d);
+    @include noBorder();
+  }
+  &-red {
+    @include definedColor(#cf1322, #ffa39e, #fff1f0);
+    @include icons(#cf1322);
+    @include noBorder();
+  }
+  &-orange {
+    @include definedColor(#d46b08, #ffd591, #fff7e6);
+    @include icons(#d46b08);
+    @include noBorder();
+  }
+  &-purple {
+    @include definedColor(#531dab, #d3adf7, #f9f0ff);
+    @include icons(#531dab);
+    @include noBorder();
+  }
+  // with customerized color
+  &-with-color {
+    color: #fff;
+    border-color: transparent;
+    @include icons(#fff);
+  }
 }
