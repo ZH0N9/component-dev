@@ -69,7 +69,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "eslintConfig": {
     "extends": [
@@ -109,6 +110,7 @@
     "@types/webpack-env": "^1.18.1",
     "cz-git": "^1.6.1",
     "eslint-plugin-storybook": "^0.6.12",
+    "prettier": "3.0.1",
     "prop-types": "^15.8.1",
     "sass": "^1.62.1",
     "storybook": "^7.0.18",

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Button } from './index';
+import Button from './index';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof Button> = {
@@ -11,26 +11,26 @@ const meta: Meta<typeof Button> = {
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     size: {
-      options: ['large','medium','small'],
+      options: ['large', 'medium', 'small'],
       control: { type: 'radio' },
     },
-    loading:{
-      control: {type: 'boolean'}
+    loading: {
+      control: { type: 'boolean' },
     },
-    disabled:{
-      control: {type: 'boolean'}
+    disabled: {
+      control: { type: 'boolean' },
     },
-    block:{
-      control: {type: 'boolean'}
-    }
+    block: {
+      control: { type: 'boolean' },
+    },
   },
-  decorators:[
-    (Story)=> {
+  decorators: [
+    (Story) => {
       return (
         <div style={{ margin: '1em' }}>
           <Story />
         </div>
-      )
+      );
     },
   ],
 };
@@ -41,30 +41,29 @@ type Story = StoryObj<typeof Button>;
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 
 export const Basic: Story = {
-  render: ()=> {
+  render: () => {
     return (
-      <div style={{display: 'flex', gap:'8px'}}>
-        <Button type='primary'>Primary</Button>
-        <Button type='normal'>Normal</Button>
-        <Button type='dashed'>Dashed</Button>
-        <Button type='text'>Text</Button>
+      <div style={{ display: 'flex', gap: '8px' }}>
+        <Button type="primary">Primary</Button>
+        <Button type="normal">Normal</Button>
+        <Button type="dashed">Dashed</Button>
+        <Button type="text">Text</Button>
       </div>
-    )
-  }
+    );
+  },
 };
 export const Size: Story = {
-  args:{
-    size: 'medium'
+  args: {
+    size: 'medium',
   },
-  render: ()=> {
+  render: () => {
     return (
-      <div style={{display: 'flex', gap:'8px'}}>
-        <Button type='primary'>Primary</Button>
-        <Button type='normal'>Normal</Button>
-        <Button type='dashed'>Dashed</Button>
-        <Button type='text'>Text</Button>
+      <div style={{ display: 'flex', gap: '8px' }}>
+        <Button type="primary">Primary</Button>
+        <Button type="normal">Normal</Button>
+        <Button type="dashed">Dashed</Button>
+        <Button type="text">Text</Button>
       </div>
-    )
-  }
+    );
+  },
 };
-

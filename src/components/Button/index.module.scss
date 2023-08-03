@@ -1,145 +1,142 @@
-$btn-prefix:".built-in-btn";
-@mixin innerAnchorTag(){
-    a{
-        text-decoration: none;
+$btn-prefix: '.built-in-btn';
+@mixin innerAnchorTag() {
+  a {
+    text-decoration: none;
+  }
+  > a:only-child {
+    color: currentColor;
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: transparent;
+      content: '';
     }
-    >a:only-child{
-        color: currentColor;
-        &::after{
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: transparent;
-            content: '';
-        }
-    }
+  }
 }
-@mixin loading(){
-    &.built-in-btn-loading{
-        &,
-        &:hover,
-        &:focus,
-        &:active {
-            cursor: not-allowed;
-            touch-action:none;
-            border-color: #d9d9d9;
-            color: rgba(0,0,0,.25);
-            background-color: rgba(0,0,0,.04);
-            box-shadow: none;
-            >a{
-                cursor: not-allowed;
-            }
-        }
+@mixin loading() {
+  &.built-in-btn-loading {
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      cursor: not-allowed;
+      touch-action: none;
+      border-color: #d9d9d9;
+      color: rgba(0, 0, 0, 0.25);
+      background-color: rgba(0, 0, 0, 0.04);
+      box-shadow: none;
+      > a {
+        cursor: not-allowed;
+      }
     }
+  }
 }
-@mixin disabled(){
+@mixin disabled() {
+  &[disabled],
+  &[disabled]:hover,
+  &[disabled]:focus,
+  &[disabled]:active {
+    cursor: not-allowed;
+    touch-action: none;
+    border-color: #d9d9d9;
+    color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(0, 0, 0, 0.04);
+    box-shadow: none;
+    > a {
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+  }
+}
+@mixin btn-type($color, $border, $background) {
+  color: $color;
+  border-color: $border;
+  background-color: $background;
+}
+
+#{$btn-prefix} {
+  position: relative;
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  white-space: nowrap;
+  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  border: 0;
+  border-radius: 3em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  @include innerAnchorTag();
+  // disabled
+  @include disabled();
+  // loading
+  @include loading();
+  // block
+  &-block {
+    width: 100%;
+  }
+  // size
+  &-lg {
+    font-size: 12px;
+    padding: 10px 16px;
+  }
+  &-md {
+    font-size: 14px;
+    padding: 11px 20px;
+  }
+  &-sm {
+    font-size: 12px;
+    padding: 10px 16px;
+  }
+  //type
+  &-primary {
+    color: white;
+    background-color: #ff9a15;
+    &:hover,
+    &:focus {
+      background-color: #ffbd66;
+    }
+  }
+  &-normal {
+    color: #333;
+    background-color: transparent;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+    &:hover,
+    &:focus {
+      box-shadow: #ff9a15 0px 0px 0px 1px inset;
+      color: #ff9a15;
+    }
+  }
+  &-dashed {
+    background-color: #fff;
+    border: 1px dashed #d9d9d9;
+    &:hover,
+    &:focus {
+      border-color: #ff9a15;
+      color: #ff9a15;
+    }
+  }
+  &-text {
+    background-color: transparent;
+    &:hover,
+    &:focus {
+      color: #ff9a15;
+    }
     &[disabled],
     &[disabled]:hover,
     &[disabled]:focus,
     &[disabled]:active {
-        cursor: not-allowed;
-        touch-action:none;
-        border-color: #d9d9d9;
-        color: rgba(0,0,0,.25);
-        background-color: rgba(0,0,0,.04);
-        box-shadow: none;
-        >a{
-            pointer-events: none;
-            cursor: not-allowed;
-        }
+      background-color: transparent;
     }
+  }
 }
-@mixin btn-type($color, $border, $background){
-    color: $color;
-    border-color: $border;
-    background-color: $background;
-}
-
-#{$btn-prefix}{
-    position: relative;
-    display: inline-flex;
-    gap: 4px;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    white-space: nowrap;
-    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 700;
-    border: 0;
-    border-radius: 3em;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    touch-action: manipulation;
-    @include innerAnchorTag();
-    // disabled
-    @include disabled();
-    // loading
-    @include loading();
-    // block
-    &-block{
-        width: 100%;
-    }
-    // size 
-    &-lg{
-        font-size: 12px;
-        padding: 10px 16px;
-    }
-    &-md{
-        font-size: 14px;
-        padding: 11px 20px;
-    }
-    &-sm{
-        font-size: 12px;
-        padding: 10px 16px;
-    }
-     //type
-     &-primary{
-        color: white;
-        background-color: #ff9a15;
-        &:hover,
-        &:focus{
-            background-color: #ffbd66;
-        }
-        
-    }
-    &-normal{
-        color: #333;
-        background-color: transparent;
-        box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
-        &:hover,
-        &:focus{
-            box-shadow: #ff9a15 0px 0px 0px 1px inset;
-            color: #ff9a15;
-        }
-    }
-    &-dashed{
-        background-color: #fff;
-        border: 1px dashed #d9d9d9;
-        &:hover,
-        &:focus{
-            border-color: #ff9a15;
-            color: #ff9a15;
-        }
-    }
-    &-text{
-        background-color: transparent;
-        &:hover,
-        &:focus{
-            color: #ff9a15;
-        }
-        &[disabled],
-        &[disabled]:hover,
-        &[disabled]:focus,
-        &[disabled]:active {
-            background-color:transparent;
-        }
-    }
-    
-}
-
