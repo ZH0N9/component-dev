@@ -1,6 +1,16 @@
-import { RadioGroupProps, prefixGroupClass, RadioOptionType } from './constants';
+import { RadioGroupProps, prefixGroupClass, RadioOptionType, RadioOptionAlignMap } from './constants';
 import { Radio } from './Radio';
-import { useEffect, useMemo, useState } from 'react';
+import {
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  Children,
+  ReactNode,
+  ReactElement,
+  cloneElement,
+} from 'react';
 import classNames from 'classnames';
 import styles from './index.module.scss';
 export const RadioGroup = (props: RadioGroupProps) => {
@@ -14,6 +24,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
     style,
     onChange,
     options: propOptions,
+    optionAlign = 'horizontal',
   } = props;
 
   useEffect(() => {
@@ -28,6 +39,13 @@ export const RadioGroup = (props: RadioGroupProps) => {
     }
   }, [propOptions]);
 
+  const groupWrapperStyles = useMemo(() => {
+    return {
+      '--radioFlexDirection': RadioOptionAlignMap[optionAlign],
+      ...style,
+    };
+  }, [style, optionAlign]);
+
   const groupWrapperCls = useMemo(() => {
     return classNames({
       [styles[`${prefixGroupClass}`]]: true,
@@ -38,17 +56,51 @@ export const RadioGroup = (props: RadioGroupProps) => {
   const [value, setValue] = useState(defaultValue);
   const [options, setOptions] = useState<RadioOptionType[]>(propOptions || []);
 
+  const handleRadioClick: MouseEventHandler = useCallback(
+    (event) => {
+      if (disabled) {
+        return;
+      }
+      const radioEl = event.target as HTMLInputElement;
+      const radioValue = radioEl.value;
+      setValue(radioValue);
+      onChange && typeof onChange === 'function' && onChange(event);
+    },
+    [onChange, disabled],
+  );
+
+  const radioChildren = Children.map(children, (child: ReactNode) => {
+    const childEl = child as ReactElement;
+    // TODO： <div> Radio>...<Radio> </div>
+    const childType = childEl.type as React.JSXElementConstructor<any>;
+    return childType === Radio
+      ? cloneElement(childEl, {
+          checked: childEl.props.value === value,
+          disabled: disabled,
+          onChange: handleRadioClick,
+        })
+      : null;
+  });
+
   return (
-    <div className={groupWrapperCls} style={style}>
-      {options?.length > 0 &&
-        options.map((option) => {
-          const checked = option.value === value;
-          return (
-            <Radio key={option.label} value={option.value} name={name} checked={checked} disabled={disabled}>
-              {option.label}
-            </Radio>
-          );
-        })}
+    <div className={groupWrapperCls} style={groupWrapperStyles}>
+      {options.length > 0
+        ? options.map((option) => {
+            const checked = option.value === value;
+            return (
+              <Radio
+                key={option.label}
+                value={option.value}
+                name={name}
+                checked={checked}
+                disabled={disabled}
+                onChange={handleRadioClick}
+              >
+                {option.label}
+              </Radio>
+            );
+          })
+        : radioChildren}
     </div>
   );
 };

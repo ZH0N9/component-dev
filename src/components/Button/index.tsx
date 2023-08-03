@@ -1,9 +1,9 @@
 import { buttonProps, prefixClass, sizeClassMap, typeClassMap } from './constants';
-import { Icon } from '../Icon';
+import Icon from '../Icon';
 import style from './index.module.scss';
 import classNames from 'classnames';
 import { MouseEventHandler } from 'react';
-export const Button = (props: buttonProps) => {
+const Button = (props: buttonProps) => {
   const {
     type = 'primary',
     size = 'medium',
@@ -41,3 +41,5 @@ export const Button = (props: buttonProps) => {
     </button>
   );
 };
+
+export default Button;

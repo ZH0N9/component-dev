@@ -10,7 +10,7 @@ try {
   console.log(error);
 }
 
-export const Icon = (props: iconProps) => {
+const Icon = (props: iconProps) => {
   const { name, color, className, width, height, spin = false, onClick } = props;
   const cls = classNames({
     [className as string]: !!className,
@@ -26,3 +26,5 @@ export const Icon = (props: iconProps) => {
     </span>
   );
 };
+
+export default Icon;

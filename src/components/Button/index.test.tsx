@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { prefixClass, typeClassMap, sizeClassMap } from './constants';
-import { Button } from '.';
+import Button from '.';
 
 describe('Button Component', () => {
   test('Render the Button', () => {

@@ -1,5 +1,4 @@
-import exp from 'constants';
-import { Tag } from '.';
+import Tag from '.';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 describe('Icon Component', () => {

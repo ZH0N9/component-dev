@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Radio } from '.';
+import Radio from '.';
 
 describe('Radio Component', () => {
   test('Render the Component', () => {

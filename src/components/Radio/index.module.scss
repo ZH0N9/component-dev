@@ -7,7 +7,11 @@ $radio-prefix-checked: '.built-in-radio-checked';
 $radio-group-prefix: '.built-in-radio-group';
 // radio group component
 #{$radio-group-prefix} {
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: var(--radioFlexDirection);
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
   box-sizing: border-box;
   margin: 0;
   padding: 0;

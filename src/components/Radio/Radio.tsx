@@ -41,7 +41,6 @@ export const Radio = (props: RadioProps) => {
   });
 
   const handleClick: MouseEventHandler = (event) => {
-    console.log('click');
     if (disabled || checked) {
       return;
     }

@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import { prefixClass, tagProps } from './constants';
-import { Icon } from '../Icon';
+import Icon from '../Icon';
 import style from './index.module.scss';
 import { CSSProperties, useEffect, useMemo, useState } from 'react';
 
-export const Tag = (props: tagProps) => {
+const Tag = (props: tagProps) => {
   const {
     color,
     className,
@@ -69,3 +69,5 @@ export const Tag = (props: tagProps) => {
     </span>
   ) : null;
 };
+
+export default Tag;

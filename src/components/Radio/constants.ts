@@ -1,4 +1,11 @@
-import { ReactNode, CSSProperties, FormEvent } from 'react';
+import { ReactNode, CSSProperties, FormEvent, MouseEventHandler, FormEventHandler } from 'react';
+
+type OptionType = 'default' | 'button';
+type OptionAlign = 'horizontal' | 'vertical';
+export enum RadioOptionAlignMap {
+  'horizontal' = 'row',
+  'vertical' = 'column',
+}
 export interface RadioProps extends React.HTMLAttributes<HTMLInputElement> {
   value?: string;
   children?: ReactNode;
@@ -9,7 +16,7 @@ export interface RadioProps extends React.HTMLAttributes<HTMLInputElement> {
   checked?: boolean;
   disabled?: boolean;
   defaultChecked?: boolean;
-  onChange?: (event: FormEvent) => void;
+  onChange?: FormEventHandler;
 }
 export interface RadioGroupProps {
   value?: string;
@@ -20,8 +27,9 @@ export interface RadioGroupProps {
   style?: CSSProperties;
   name?: string;
   options?: Array<RadioOptionType>;
-  optionType?: 'default' | 'button';
-  onChange?: (event: FormEvent) => void;
+  optionType?: OptionType;
+  optionAlign?: OptionAlign;
+  onChange?: FormEventHandler;
 }
 export interface RadioOptionType {
   label?: string;
