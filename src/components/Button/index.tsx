@@ -2,7 +2,6 @@ import { buttonProps, prefixClass, sizeClassMap, typeClassMap } from './constant
 import Icon from '../Icon';
 import style from './index.module.scss';
 import classNames from 'classnames';
-import { MouseEventHandler } from 'react';
 const Button = (props: buttonProps) => {
   const {
     type = 'primary',
