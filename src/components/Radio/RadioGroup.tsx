@@ -53,7 +53,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
     });
   }, [className]);
 
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState(defaultValue || '');
   const [options, setOptions] = useState<RadioOptionType[]>(propOptions || []);
 
   const handleRadioClick: MouseEventHandler = useCallback(
@@ -93,7 +93,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
                 value={option.value}
                 name={name}
                 checked={checked}
-                disabled={disabled}
+                disabled={disabled || option.disabled}
                 onChange={handleRadioClick}
               >
                 {option.label}

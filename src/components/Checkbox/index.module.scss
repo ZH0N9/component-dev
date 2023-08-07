@@ -5,6 +5,23 @@ $checkbox-wrapper-disabled: '.built-in-checkbox-wrapper-disabled';
 $checkbox-inner: '.built-in-checkbox-inner';
 $checkbox-input: '.built-in-checkbox-input';
 
+$checkbox-group-prefix: '.built-in-checkbox-group';
+
+#{$checkbox-group-prefix} {
+  display: inline-flex;
+  flex-direction: var(--checkboxFlexDirection);
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.88);
+  line-height: 1.5714285714285714;
+  list-style: none;
+}
+
+// checkbox
 #{$checkbox-wrapper} {
   position: relative;
   font-size: 14px;
