@@ -3,6 +3,7 @@ export interface CheckboxProps extends React.HTMLAttributes<HTMLInputElement> {
   name?: string;
   checked?: boolean;
   defaultChecked?: boolean;
+  disabled?: boolean;
   value?: string;
   children?: ReactNode;
   className?: string;
