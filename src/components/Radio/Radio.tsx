@@ -55,7 +55,7 @@ export const Radio = (props: RadioProps) => {
   return (
     <label className={wrapperCls}>
       <span className={radioCls} onClick={handleClick}>
-        <input type="radio" value={value} ref={inputRef} {...restProps} />
+        <input type="radio" value={value} ref={inputRef} disabled={!!disabled} {...restProps} />
         <span className={radioInnerCls}></span>
       </span>
       {children && <span>{children}</span>}

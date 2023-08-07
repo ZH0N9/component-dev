@@ -76,7 +76,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
     return childType === Radio
       ? cloneElement(childEl, {
           checked: childEl.props.value === value,
-          disabled: disabled,
+          disabled: disabled || childEl.props.disabled,
           onChange: handleRadioClick,
         })
       : null;
