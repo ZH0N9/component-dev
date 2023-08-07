@@ -1,16 +1,17 @@
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
-import { RadioProps, prefixClass } from './constants';
+import { CheckboxProps, prefixClass } from './constants';
 import style from './index.module.scss';
 import classNames from 'classnames';
-export const Radio = (props: RadioProps) => {
+export const Checkbox = (props: CheckboxProps) => {
   const {
+    checked: propChecked,
+    defaultChecked,
+    disabled,
+    name,
     value,
     children,
     className,
-    defaultChecked = false,
-    checked: propChecked,
-    disabled: propDisabled,
-    style: propsStyle,
+    style: propStyle,
     onChange,
     ...restProps
   } = props;
@@ -19,45 +20,50 @@ export const Radio = (props: RadioProps) => {
       setChecked(propChecked);
     }
   }, [propChecked]);
-  useEffect(() => {
-    if (typeof propDisabled === 'boolean') {
-      setDisabled(propDisabled);
-    }
-  }, [propDisabled]);
 
-  const [checked, setChecked] = useState<Boolean>(!!defaultChecked);
-  const [disabled, setDisabled] = useState<Boolean>(!!propDisabled);
+  const [checked, setChecked] = useState(!!defaultChecked);
   const inputRef = useRef(null);
+
   const wrapperCls = classNames({
     [style[`${prefixClass}-wrapper`]]: true,
-    [style[`${prefixClass}-wrapper-disabled`]]: disabled,
+    [style[`${prefixClass}-wrapper-disabled`]]: !!disabled,
   });
-  const radioCls = classNames({
+  const checkboxCls = classNames({
     [style[`${prefixClass}`]]: true,
-    [style[`${prefixClass}-checked`]]: checked,
+    [style[`${prefixClass}-checked`]]: !!checked,
     [className as string]: !!className,
   });
-  const radioInnerCls = classNames({
+  const checkboxInnerCls = classNames({
     [style[`${prefixClass}-inner`]]: true,
   });
 
   const handleClick: MouseEventHandler = (event) => {
-    if (disabled || checked) {
+    if (disabled) {
       return;
     }
     if (!('checked' in props)) {
-      setChecked(true);
+      setChecked(!checked);
     }
     if (inputRef.current) {
       event.target = inputRef.current;
     }
     onChange && typeof onChange === 'function' && onChange(event);
   };
+
   return (
     <label className={wrapperCls}>
-      <span className={radioCls} onClick={handleClick}>
-        <input type="radio" checked={!!checked} value={value} ref={inputRef} disabled={!!disabled} {...restProps} />
-        <span className={radioInnerCls}></span>
+      <span className={checkboxCls} style={propStyle} onClick={handleClick}>
+        <input
+          className={style[`${prefixClass}-input`]}
+          disabled={!!disabled}
+          checked={!!checked}
+          type="checkbox"
+          value={value}
+          name={name}
+          ref={inputRef}
+          {...restProps}
+        />
+        <span className={checkboxInnerCls}></span>
       </span>
       {children && <span>{children}</span>}
     </label>

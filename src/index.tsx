@@ -5,15 +5,18 @@ import Button from './components/Button';
 import Icon from './components/Icon';
 import Tag from './components/Tag';
 import Radio from './components/Radio';
+import Checkbox from './components/Checkbox';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
+    <Checkbox disabled checked>
+      Test
+    </Checkbox>
     <Radio.Group optionAlign="vertical" name="radiogroup">
       <Radio
-        disabled={true}
-        defaultChecked={false}
+        defaultChecked={true}
         onChange={(e) => {
           console.log(e);
         }}
@@ -33,6 +36,7 @@ root.render(
         Radio2
       </Radio>
     </Radio.Group>
+    {/* 
     <input type="radio" name="sex" value="B" />
     <input type="radio" name="sex" value="A" />
     <Button type="normal" disabled>
@@ -82,7 +86,7 @@ root.render(
       closable
     >
       <div>dddd</div>
-    </Tag>
+    </Tag> */}
   </React.StrictMode>,
 );
 
