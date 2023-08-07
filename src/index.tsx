@@ -12,6 +12,7 @@ root.render(
   <React.StrictMode>
     <Radio.Group optionAlign="vertical" name="radiogroup">
       <Radio
+        disabled={true}
         defaultChecked={false}
         onChange={(e) => {
           console.log(e);
@@ -38,6 +39,7 @@ root.render(
       <a href="www.baidu.com">dddd</a>
     </Button>
     <Radio
+      disabled={true}
       defaultChecked={false}
       onChange={(e) => {
         console.log(e);
