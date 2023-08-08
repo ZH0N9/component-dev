@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useContext, MouseEventHandler } from 'react';
+import { useEffect, useState, useMemo, MouseEventHandler } from 'react';
 import { Checkbox } from './Checkbox';
 import CheckboxContext from './context';
 import { CheckboxGroupProps, prefixGroupClass, CheckboxOptionAlignMap, CheckboxOptionType } from './constants';
@@ -48,11 +48,9 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
   const handleCheckboxClick: MouseEventHandler = (event) => {
     const target = event.target as any;
     const targetValue = target.value;
-    const targetChecked = target.checked;
-    console.log('targetChecked: ', targetChecked);
+    const newValue = value;
     if (targetValue) {
       const idx = value.findIndex((el) => el === targetValue);
-      const newValue = value;
       if (idx !== -1) {
         newValue.splice(idx, 1);
       } else {
@@ -60,14 +58,13 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
       }
       setValue([...newValue]);
     }
-    onChange && typeof onChange === 'function' && onChange(event);
+    onChange && typeof onChange === 'function' && onChange(newValue);
   };
   return (
     <div className={groupWrapperCls} style={groupWrapperStyle}>
       {options.length > 0 ? (
         options.map((option) => {
           const checked = value.findIndex((el) => el === option.value) !== -1;
-          console.log('map checked', checked);
           return (
             <Checkbox
               key={option.label}
@@ -82,7 +79,9 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
           );
         })
       ) : (
-        <CheckboxContext.Provider value={{ value, disabled, onChange: handleCheckboxClick }}></CheckboxContext.Provider>
+        <CheckboxContext.Provider value={{ value, disabled, onChange: handleCheckboxClick }}>
+          {children}
+        </CheckboxContext.Provider>
       )}
     </div>
   );

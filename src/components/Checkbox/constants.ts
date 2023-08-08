@@ -15,7 +15,7 @@ export type CheckboxGroupProps = {
   style?: CSSProperties;
   options?: Array<CheckboxOptionType>;
   optionAlign?: OptionAlign;
-  onChange?: FormEventHandler;
+  onChange?: (checkedValues: Array<string | number>) => void;
 } & Omit<React.HTMLAttributes<HTMLInputElement>, 'defaultValue' | 'value' | 'onChange'>;
 
 export type CheckboxProps = {

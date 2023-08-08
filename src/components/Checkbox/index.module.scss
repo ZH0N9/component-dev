@@ -10,7 +10,7 @@ $checkbox-group-prefix: '.built-in-checkbox-group';
 #{$checkbox-group-prefix} {
   display: inline-flex;
   flex-direction: var(--checkboxFlexDirection);
-  align-items: flex-start;
+  align-items: baseline;
   justify-content: center;
   gap: 8px;
   box-sizing: border-box;
