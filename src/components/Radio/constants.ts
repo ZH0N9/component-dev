@@ -7,7 +7,7 @@ export enum RadioOptionAlignMap {
   'vertical' = 'column',
 }
 export interface RadioProps extends React.HTMLAttributes<HTMLInputElement> {
-  value?: string;
+  value?: string | number;
   children?: ReactNode;
   className?: string;
   style?: CSSProperties;
@@ -19,8 +19,8 @@ export interface RadioProps extends React.HTMLAttributes<HTMLInputElement> {
   onChange?: FormEventHandler;
 }
 export interface RadioGroupProps {
-  value?: string;
-  defaultValue?: string;
+  value?: string | number;
+  defaultValue?: string | number;
   disabled?: boolean;
   children?: ReactNode;
   className?: string;
@@ -29,7 +29,7 @@ export interface RadioGroupProps {
   options?: Array<RadioOptionType>;
   optionType?: OptionType;
   optionAlign?: OptionAlign;
-  onChange?: FormEventHandler;
+  onChange?: (checkedValue: string | number) => void;
 }
 export interface RadioOptionType {
   label?: string;

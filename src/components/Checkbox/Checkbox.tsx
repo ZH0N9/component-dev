@@ -1,5 +1,6 @@
-import { MouseEventHandler, useEffect, useRef, useState } from 'react';
+import { MouseEventHandler, useEffect, useRef, useState, useContext } from 'react';
 import { CheckboxProps, prefixClass } from './constants';
+import CheckboxContext from './context';
 import style from './index.module.scss';
 import classNames from 'classnames';
 export const Checkbox = (props: CheckboxProps) => {
@@ -15,14 +16,25 @@ export const Checkbox = (props: CheckboxProps) => {
     onChange,
     ...restProps
   } = props;
+
+  const [checked, setChecked] = useState<Boolean>(!!defaultChecked);
+  const inputRef = useRef(null);
+  // Controlled by CheckboxGroup
+  const { value: groupValues, disabled: groupDisabled, onChange: groupOnChange } = useContext(CheckboxContext);
+
   useEffect(() => {
     if (typeof propChecked === 'boolean') {
       setChecked(propChecked);
     }
   }, [propChecked]);
 
-  const [checked, setChecked] = useState(!!defaultChecked);
-  const inputRef = useRef(null);
+  // Controlled by CheckboxGroup
+  useEffect(() => {
+    if (groupValues && value !== undefined) {
+      const checkedInGroup = groupValues.indexOf(value) > -1;
+      setChecked(checkedInGroup);
+    }
+  }, [groupValues, value]);
 
   const wrapperCls = classNames({
     [style[`${prefixClass}-wrapper`]]: true,
@@ -38,7 +50,7 @@ export const Checkbox = (props: CheckboxProps) => {
   });
 
   const handleClick: MouseEventHandler = (event) => {
-    if (disabled) {
+    if (disabled || groupDisabled) {
       return;
     }
     if (!('checked' in props)) {
@@ -48,19 +60,22 @@ export const Checkbox = (props: CheckboxProps) => {
       event.target = inputRef.current;
     }
     onChange && typeof onChange === 'function' && onChange(event);
+    groupOnChange && typeof groupOnChange === 'function' && groupOnChange(event);
   };
 
   return (
     <label className={wrapperCls}>
-      <span className={checkboxCls} style={propStyle} onClick={handleClick}>
+      <span className={checkboxCls} style={propStyle}>
         <input
           className={style[`${prefixClass}-input`]}
-          disabled={!!disabled}
+          disabled={groupDisabled || disabled}
           checked={!!checked}
           type="checkbox"
           value={value}
           name={name}
           ref={inputRef}
+          onClick={handleClick}
+          readOnly
           {...restProps}
         />
         <span className={checkboxInnerCls}></span>

@@ -11,28 +11,34 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <Checkbox disabled checked>
-      Test
-    </Checkbox>
-    <Radio.Group optionAlign="vertical" name="radiogroup">
-      <Radio
-        defaultChecked={true}
-        onChange={(e) => {
-          console.log(e);
-        }}
-        name="education"
-        value="radio"
-      >
+    <Checkbox.Group
+      options={[
+        { label: '1', value: '1' },
+        { label: '2', value: '2' },
+      ]}
+    ></Checkbox.Group>
+    <Checkbox.Group
+      onChange={(checkedValues) => {
+        console.log('checked values', checkedValues);
+      }}
+    >
+      <div>
+        <Checkbox value="3">3</Checkbox>
+      </div>
+      <Checkbox value="4">477</Checkbox>
+    </Checkbox.Group>
+
+    <Radio.Group
+      optionAlign="vertical"
+      name="radiogroup"
+      onChange={(checkedValue) => {
+        console.log(checkedValue);
+      }}
+    >
+      <Radio defaultChecked={true} name="education" value="radio">
         Radio
       </Radio>
-      <Radio
-        defaultChecked={false}
-        onChange={(e) => {
-          console.log(e);
-        }}
-        name="education"
-        value="radio2"
-      >
+      <Radio defaultChecked={false} name="education" value="radio2">
         Radio2
       </Radio>
     </Radio.Group>
