@@ -17,7 +17,7 @@ export const Checkbox = (props: CheckboxProps) => {
     ...restProps
   } = props;
 
-  const [checked, setChecked] = useState<Boolean>(!!defaultChecked);
+  const [checked, setChecked] = useState<Boolean>(defaultChecked || false);
   const inputRef = useRef(null);
   // Controlled by CheckboxGroup
   const { value: groupValues, disabled: groupDisabled, onChange: groupOnChange } = useContext(CheckboxContext);

@@ -6,7 +6,7 @@ export interface CheckboxContextProps {
   onChange?: MouseEventHandler;
 }
 const CheckboxContext = createContext<CheckboxContextProps>({
-  value: [],
+  value: undefined,
   disabled: false,
   onChange: (event) => {},
 });

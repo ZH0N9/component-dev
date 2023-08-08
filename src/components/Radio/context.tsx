@@ -6,7 +6,7 @@ export interface RadioContextProps {
   onChange?: MouseEventHandler;
 }
 const RadioContext = createContext<RadioContextProps>({
-  value: '',
+  value: undefined,
   disabled: false,
   onChange: (event) => {},
 });

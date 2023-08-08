@@ -12,12 +12,14 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <Checkbox.Group
+      defaultValue={['1', '2']}
       options={[
         { label: '1', value: '1' },
         { label: '2', value: '2' },
       ]}
     ></Checkbox.Group>
     <Checkbox.Group
+      defaultValue={['3']}
       onChange={(checkedValues) => {
         console.log('checked values', checkedValues);
       }}
@@ -31,6 +33,7 @@ root.render(
     <Radio.Group
       optionAlign="vertical"
       name="radiogroup"
+      defaultValue={'radio2'}
       onChange={(checkedValue) => {
         console.log(checkedValue);
       }}
