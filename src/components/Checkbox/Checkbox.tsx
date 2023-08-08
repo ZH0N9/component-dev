@@ -52,15 +52,16 @@ export const Checkbox = (props: CheckboxProps) => {
 
   return (
     <label className={wrapperCls}>
-      <span className={checkboxCls} style={propStyle} onClick={handleClick}>
+      <span className={checkboxCls} style={propStyle}>
         <input
           className={style[`${prefixClass}-input`]}
-          disabled={!!disabled}
-          checked={!!checked}
+          disabled={disabled}
+          checked={checked}
           type="checkbox"
           value={value}
           name={name}
           ref={inputRef}
+          onClick={handleClick}
           {...restProps}
         />
         <span className={checkboxInnerCls}></span>

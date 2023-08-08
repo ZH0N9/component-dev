@@ -5,32 +5,36 @@ export enum CheckboxOptionAlignMap {
   'horizontal' = 'row',
   'vertical' = 'column',
 }
-export interface CheckboxGroupProps extends React.HTMLAttributes<HTMLInputElement> {
+
+export type CheckboxGroupProps = {
   name?: string;
   disabled?: boolean;
-  value?: string[];
-  defaultValue?: string[];
+  value?: Array<string | number>;
+  defaultValue?: Array<string | number>;
   className?: string;
   style?: CSSProperties;
   options?: Array<CheckboxOptionType>;
   optionAlign?: OptionAlign;
   onChange?: FormEventHandler;
-}
-export interface CheckboxProps extends React.HTMLAttributes<HTMLInputElement> {
+} & Omit<React.HTMLAttributes<HTMLInputElement>, 'defaultValue' | 'value' | 'onChange'>;
+
+export type CheckboxProps = {
   name?: string;
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;
-  value?: string;
+  value?: string | number;
   children?: ReactNode;
   className?: string;
   style?: CSSProperties;
   onChange?: FormEventHandler;
-}
+} & Omit<React.HTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>;
+
 export interface CheckboxOptionType {
   label?: string;
   value?: string;
   disabled?: boolean;
 }
+
 export const prefixClass = 'built-in-checkbox';
 export const prefixGroupClass = 'built-in-checkbox-group';

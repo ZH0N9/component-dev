@@ -1,5 +1,6 @@
-import { useEffect, useState, useMemo, MouseEventHandler } from 'react';
+import { useEffect, useState, useMemo, useContext, MouseEventHandler } from 'react';
 import { Checkbox } from './Checkbox';
+import CheckboxContext from './context';
 import { CheckboxGroupProps, prefixGroupClass, CheckboxOptionAlignMap, CheckboxOptionType } from './constants';
 import style from './index.module.scss';
 import classNames from 'classnames';
@@ -13,6 +14,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
     style: propStyle,
     options: propOptions,
     optionAlign = 'horizontal',
+    children,
     onChange,
   } = props;
   useEffect(() => {
@@ -26,7 +28,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
     }
   }, [propOptions]);
 
-  const [value, setValue] = useState<string[]>(defaultValue || []);
+  const [value, setValue] = useState<Array<string | number>>(defaultValue || []);
   const [options, setOptions] = useState<CheckboxOptionType[]>(propOptions || []);
 
   const groupWrapperCls = useMemo(() => {
@@ -46,6 +48,8 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
   const handleCheckboxClick: MouseEventHandler = (event) => {
     const target = event.target as any;
     const targetValue = target.value;
+    const targetChecked = target.checked;
+    console.log('targetChecked: ', targetChecked);
     if (targetValue) {
       const idx = value.findIndex((el) => el === targetValue);
       const newValue = value;
@@ -60,23 +64,26 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
   };
   return (
     <div className={groupWrapperCls} style={groupWrapperStyle}>
-      {options.length > 0
-        ? options.map((option) => {
-            const checked = value.findIndex((el) => el === option.value) !== -1;
-            return (
-              <Checkbox
-                key={option.label}
-                checked={checked}
-                value={option.value}
-                name={name}
-                disabled={disabled || option.disabled}
-                onChange={handleCheckboxClick}
-              >
-                {option.value}
-              </Checkbox>
-            );
-          })
-        : null}
+      {options.length > 0 ? (
+        options.map((option) => {
+          const checked = value.findIndex((el) => el === option.value) !== -1;
+          console.log('map checked', checked);
+          return (
+            <Checkbox
+              key={option.label}
+              checked={checked}
+              value={option.value}
+              name={name}
+              disabled={disabled || option.disabled}
+              onChange={handleCheckboxClick}
+            >
+              {option.value}
+            </Checkbox>
+          );
+        })
+      ) : (
+        <CheckboxContext.Provider value={{ value, disabled, onChange: handleCheckboxClick }}></CheckboxContext.Provider>
+      )}
     </div>
   );
 };
