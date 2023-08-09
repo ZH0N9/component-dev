@@ -6,12 +6,15 @@ import Icon from './components/Icon';
 import Tag from './components/Tag';
 import Radio from './components/Radio';
 import Checkbox from './components/Checkbox';
+import Input from './components/Input';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <Checkbox.Group
+    <br />
+    <Input placeholder="dd" prefix={<span>d</span>} suffix={<span>end</span>} allowClear maxLength={5} showCount />
+    {/* <Checkbox.Group
       defaultValue={['1', '2']}
       options={[
         { label: '1', value: '1' },
@@ -44,7 +47,7 @@ root.render(
       <Radio defaultChecked={false} name="education" value="radio2">
         Radio2
       </Radio>
-    </Radio.Group>
+    </Radio.Group> */}
     {/* 
     <input type="radio" name="sex" value="B" />
     <input type="radio" name="sex" value="A" />
