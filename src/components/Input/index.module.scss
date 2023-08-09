@@ -71,6 +71,14 @@ $input-inside-countSuffix: '.built-in-input-countSuffix';
     background-color: transparent;
     cursor: not-allowed;
   }
+  &:hover {
+    border-color: #d9d9d9;
+    border-inline-end-width: 1px;
+  }
+  &:has(#{$input-prefix}:hover, #{$input-prefix}:focus) {
+    border-color: #d9d9d9;
+    border-inline-end-width: 1px;
+  }
 }
 
 #{$input-wrapper-borderless} {
