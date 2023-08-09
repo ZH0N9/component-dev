@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <br />
-    <Input placeholder="dd" prefix={<span>d</span>} suffix={<span>end</span>} disabled />
+    <Input placeholder="dd" disabled prefix={<span>dd</span>} style={{ width: '100%', height: 40 }} />
     {/* <Checkbox.Group
       defaultValue={['1', '2']}
       options={[

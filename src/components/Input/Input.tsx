@@ -96,23 +96,22 @@ export const Input = (props: InputProps) => {
           {value.length} / {Math.round(maxLength)}
         </span>
       ) : null;
-    return (
+    return suffix && clearSuffix && countSuffix ? (
       <span className={style[`${prefixClass}-suffix`]}>
         {clearSuffix}
         {countSuffix}
         {suffix ? suffix : null}
       </span>
-    );
+    ) : null;
   }, [suffix, allowClear, value, showCount, maxLength, handleClearClick]);
 
   return (
-    <span className={wrapperCls}>
+    <span className={wrapperCls} style={propStyle}>
       {prefixView}
       <input
         value={value}
         disabled={disabled}
         className={inputCls}
-        style={propStyle}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
         {...restProps}
