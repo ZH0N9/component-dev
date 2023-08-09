@@ -17,18 +17,20 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
     children,
     onChange,
   } = props;
+
   useEffect(() => {
     if (propValue) {
       setValue([...propValue]);
     }
   }, [propValue]);
+
   useEffect(() => {
     if (propOptions) {
       setOptions([...propOptions]);
     }
   }, [propOptions]);
 
-  const [value, setValue] = useState<Array<string | number>>(defaultValue || []);
+  const [value, setValue] = useState<Array<string | number>>(defaultValue || propValue || []);
   const [options, setOptions] = useState<CheckboxOptionType[]>(propOptions || []);
 
   const groupWrapperCls = useMemo(() => {

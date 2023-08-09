@@ -7,6 +7,7 @@ export interface iconProps {
   color?: string;
   width?: number;
   height?: number;
+  style?: CSSProperties;
   // spin or not
   spin?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;

@@ -1,0 +1,142 @@
+$input-prefix: '.built-in-input';
+$input-wrapper: '.built-in-input-wrapper';
+$input-wrapper-disabled: '.built-in-input-wrapper-disabled';
+$input-wrapper-borderless: '.built-in-input-wrapper-borderless';
+$input-wrapper-affix: '.built-in-input-wrapper-affix';
+$input-inside-prefix: '.built-in-input-prefix';
+$input-inside-suffix: '.built-in-input-suffix';
+$input-inside-clearIcon: '.built-in-input-clearIcon';
+$input-inside-clearIcon-hidden: '.built-in-input-clearIcon-hidden';
+$input-inside-clearIcon-default: '.built-in-input-clearIcon-default';
+$input-inside-countSuffix: '.built-in-input-countSuffix';
+#{$input-wrapper} {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  box-sizing: border-box;
+  display: inline-flex;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Col';
+  &:hover {
+    border-color: orange;
+    border-inline-end-width: 1px;
+  }
+  &:has(#{$input-prefix}:hover, #{$input-prefix}:focus) {
+    border-color: orange;
+    border-inline-end-width: 1px;
+  }
+  #{$input-prefix} {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 4px 11px;
+    color: rgba(0, 0, 0, 0.88);
+    font-size: 14px;
+    line-height: 1.5714285714285714;
+    list-style: none;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    min-width: 0;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    background-color: #ffffff;
+    transition: all 0.2s;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Col';
+    &:placeholder-shown {
+      text-overflow: ellipsis;
+    }
+    &:disabled {
+      background-color: transparent;
+      cursor: not-allowed;
+    }
+  }
+}
+
+#{$input-wrapper-disabled} {
+  color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.04);
+  border-color: #d9d9d9;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 1;
+  #{$input-prefix} {
+    background-color: transparent;
+    cursor: not-allowed;
+  }
+  &:hover {
+    border-color: #d9d9d9;
+    border-inline-end-width: 1px;
+  }
+  &:has(#{$input-prefix}:hover, #{$input-prefix}:focus) {
+    border-color: #d9d9d9;
+    border-inline-end-width: 1px;
+  }
+}
+
+#{$input-wrapper-borderless} {
+  border: none;
+  &:hover {
+    border: none;
+  }
+  &:has(#{$input-prefix}:hover, #{$input-prefix}:focus) {
+    border: none;
+  }
+}
+
+#{$input-wrapper-affix} {
+  padding: 4px 11px;
+  #{$input-prefix} {
+    padding: 0;
+    font-size: inherit;
+    border: none;
+    border-radius: 0;
+    outline: none;
+  }
+  #{$input-inside-prefix},
+  #{$input-inside-suffix} {
+    display: flex;
+    align-items: center;
+    flex: none;
+  }
+  #{$input-inside-prefix} {
+    margin-inline-end: 4px;
+  }
+  #{$input-inside-suffix} {
+    margin-inline-start: 4px;
+    gap: 4px;
+    #{$input-inside-clearIcon} {
+      display: flex;
+      font-size: 12px;
+      cursor: pointer;
+      color: rgba(0, 0, 0, 0.25);
+      transition: color 0.2s;
+      &#{$input-inside-clearIcon-hidden} {
+        visibility: hidden;
+      }
+      &:hover {
+        color: rgba(0, 0, 0, 0.45);
+        #{$input-inside-clearIcon-default},
+        svg {
+          fill: rgba(0, 0, 0, 0.45);
+          transition: all 0.2s;
+        }
+      }
+      #{$input-inside-clearIcon-default},
+      svg {
+        fill: rgba(0, 0, 0, 0.25);
+        transition: all 0.2s;
+      }
+    }
+    #{$input-inside-countSuffix} {
+      color: rgba(0, 0, 0, 0.45);
+    }
+  }
+}

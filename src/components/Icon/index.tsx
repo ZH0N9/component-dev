@@ -11,16 +11,20 @@ try {
 }
 
 const Icon = (props: iconProps) => {
-  const { name, color, className, width, height, spin = false, onClick } = props;
+  const { name, color, className, width, height, style: propStyle, spin = false, onClick } = props;
   const cls = classNames({
-    [className as string]: !!className,
     [style[`${prefixClass}`]]: true,
     [style[`${prefixClass}-spin`]]: spin,
   });
   const symbolId = `#icon-${name}`;
   return (
     <span role="img" className={cls} onClick={onClick}>
-      <svg aria-hidden="true" style={{ width: width ? width : '1em', height: height ? height : '1em', color }}>
+      <svg
+        className={className}
+        aria-hidden="true"
+        style={{ width: width ? width : '1em', height: height ? height : '1em', color, ...propStyle }}
+        fill={color}
+      >
         <use href={symbolId} fill={color} />
       </svg>
     </span>

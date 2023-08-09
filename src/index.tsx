@@ -6,18 +6,23 @@ import Icon from './components/Icon';
 import Tag from './components/Tag';
 import Radio from './components/Radio';
 import Checkbox from './components/Checkbox';
+import Input from './components/Input';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <Checkbox.Group
+    <br />
+    <Input placeholder="dd" disabled prefix={<span>dd</span>} style={{ width: '100%', height: 40 }} />
+    {/* <Checkbox.Group
+      defaultValue={['1', '2']}
       options={[
         { label: '1', value: '1' },
         { label: '2', value: '2' },
       ]}
     ></Checkbox.Group>
     <Checkbox.Group
+      defaultValue={['3']}
       onChange={(checkedValues) => {
         console.log('checked values', checkedValues);
       }}
@@ -31,6 +36,7 @@ root.render(
     <Radio.Group
       optionAlign="vertical"
       name="radiogroup"
+      defaultValue={'radio2'}
       onChange={(checkedValue) => {
         console.log(checkedValue);
       }}
@@ -41,7 +47,7 @@ root.render(
       <Radio defaultChecked={false} name="education" value="radio2">
         Radio2
       </Radio>
-    </Radio.Group>
+    </Radio.Group> */}
     {/* 
     <input type="radio" name="sex" value="B" />
     <input type="radio" name="sex" value="A" />

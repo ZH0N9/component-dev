@@ -1,5 +1,4 @@
 pnpm-lock.yaml
 .venv/
 node_modules/
-
-/api/.chalice/deployed/
+scripts/templates
