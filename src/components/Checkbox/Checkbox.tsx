@@ -75,7 +75,7 @@ export const Checkbox = (props: CheckboxProps) => {
           name={name}
           ref={inputRef}
           onClick={handleClick}
-          readOnly
+          //readOnly
           {...restProps}
         />
         <span className={checkboxInnerCls}></span>

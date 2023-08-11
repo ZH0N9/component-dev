@@ -11,6 +11,8 @@ import {
   ReactNode,
   ReactElement,
   cloneElement,
+  ChangeEvent,
+  ChangeEventHandler,
 } from 'react';
 import classNames from 'classnames';
 import styles from './index.module.scss';
@@ -57,17 +59,25 @@ export const RadioGroup = (props: RadioGroupProps) => {
   const [value, setValue] = useState(defaultValue || '');
   const [options, setOptions] = useState<RadioOptionType[]>(propOptions || []);
 
-  const handleRadioClick: MouseEventHandler = useCallback(
+  const handleRadioClick: MouseEventHandler<HTMLInputElement> = useCallback(
     (event) => {
       if (disabled) {
         return;
       }
+      console.log('group clicked');
       const radioEl = event.target as HTMLInputElement;
       const radioValue = radioEl.value;
       setValue(radioValue);
+    },
+    [disabled],
+  );
+  const handleRadioChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      const radioEl = event.target as HTMLInputElement;
+      const radioValue = radioEl.value;
       onChange && typeof onChange === 'function' && onChange(radioValue);
     },
-    [onChange, disabled],
+    [onChange],
   );
 
   // Refined NEEDED
@@ -96,14 +106,15 @@ export const RadioGroup = (props: RadioGroupProps) => {
               name={name}
               checked={checked}
               disabled={disabled || option.disabled}
-              onChange={handleRadioClick}
+              onChange={handleRadioChange}
+              onClick={handleRadioClick}
             >
               {option.label}
             </Radio>
           );
         })
       ) : (
-        <RadioContext.Provider value={{ value, disabled, onChange: handleRadioClick }}>
+        <RadioContext.Provider value={{ value, disabled, onClick: handleRadioClick, onChange: handleRadioChange }}>
           {children}
         </RadioContext.Provider>
       )}

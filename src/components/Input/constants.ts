@@ -19,4 +19,27 @@ export type InputProps = {
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
 } & Omit<React.HTMLAttributes<HTMLInputElement>, 'prefix' | 'suffix'>;
 
+type ResizeObject = {
+  width: number;
+  height: number;
+};
+
+export type TextareaProps = {
+  id?: string;
+  value?: string;
+  defaultValue?: string;
+  autoSize?: boolean;
+  maxLength?: number;
+  showCount?: boolean;
+  allowClear?: boolean | { clearIcon: ReactNode };
+  disabled?: boolean;
+  bordered?: boolean;
+  className?: string;
+  style?: CSSProperties;
+  onPressEnter?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  onResize?: (resizeObj: ResizeObject) => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
+} & React.HTMLAttributes<HTMLTextAreaElement>;
+
 export const prefixClass = 'built-in-input';
+export const prefixTextareaClass = 'built-in-textarea';

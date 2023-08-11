@@ -13,14 +13,14 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <br />
-    <Input placeholder="dd" disabled prefix={<span>dd</span>} style={{ width: '100%', height: 40 }} />
-    {/* <Checkbox.Group
+    <Input placeholder="dd" maxLength={10} prefix={<span>dd</span>} style={{ width: '100%', height: 40 }} />
+    {/* {/* <Checkbox.Group
       defaultValue={['1', '2']}
       options={[
         { label: '1', value: '1' },
         { label: '2', value: '2' },
       ]}
-    ></Checkbox.Group>
+    ></Checkbox.Group> */}
     <Checkbox.Group
       defaultValue={['3']}
       onChange={(checkedValues) => {
@@ -32,7 +32,14 @@ root.render(
       </div>
       <Checkbox value="4">477</Checkbox>
     </Checkbox.Group>
-
+    <Radio value="2">3</Radio>
+    <Radio.Group
+      defaultValue={'4'}
+      options={[
+        { value: '4', label: '4' },
+        { value: '3', label: '3' },
+      ]}
+    ></Radio.Group>
     <Radio.Group
       optionAlign="vertical"
       name="radiogroup"
@@ -47,7 +54,7 @@ root.render(
       <Radio defaultChecked={false} name="education" value="radio2">
         Radio2
       </Radio>
-    </Radio.Group> */}
+    </Radio.Group>
     {/* 
     <input type="radio" name="sex" value="B" />
     <input type="radio" name="sex" value="A" />
