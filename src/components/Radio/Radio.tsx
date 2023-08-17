@@ -64,7 +64,7 @@ export const Radio = (props: RadioProps) => {
     [style[`${prefixClass}-inner`]]: true,
   });
 
-  const handleClick: MouseEventHandler<HTMLInputElement> = (event) => {
+  const handleClick: MouseEventHandler = (event) => {
     console.log('click');
     if (groupDisabled || disabled) {
       return;
@@ -81,30 +81,25 @@ export const Radio = (props: RadioProps) => {
   };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    console.log(event.target.value);
-    console.log(event.target.checked);
     onChange && typeof onChange === 'function' && onChange(event);
     groupOnChange && typeof groupOnChange === 'function' && groupOnChange(event);
   };
 
   return (
-    <label className={wrapperCls}>
-      <span className={radioCls} onClick={handleClick}>
+    <span className={wrapperCls} onClick={handleClick}>
+      <span className={radioCls}>
         <input
           type="radio"
           checked={checked}
           value={value}
           ref={inputRef}
-          disabled={groupDisabled || !!disabled}
+          disabled={groupDisabled || disabled}
           onChange={handleChange}
-          onClick={(e) => {
-            console.log(e.target);
-          }}
           {...restProps}
         />
         <span className={radioInnerCls}></span>
       </span>
       {children && <span>{children}</span>}
-    </label>
+    </span>
   );
 };

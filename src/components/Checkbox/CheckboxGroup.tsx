@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, MouseEventHandler } from 'react';
+import { useEffect, useState, useMemo, MouseEventHandler, ChangeEventHandler } from 'react';
 import { Checkbox } from './Checkbox';
 import CheckboxContext from './context';
 import { CheckboxGroupProps, prefixGroupClass, CheckboxOptionAlignMap, CheckboxOptionType } from './constants';
@@ -50,6 +50,8 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
   const handleCheckboxClick: MouseEventHandler = (event) => {
     const target = event.target as any;
     const targetValue = target.value;
+    console.log('targetValue : ', targetValue);
+
     const newValue = value;
     if (targetValue) {
       const idx = value.findIndex((el) => el === targetValue);
@@ -60,6 +62,20 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
       }
       setValue([...newValue]);
     }
+  };
+  const handleCheckboxChange: ChangeEventHandler = (event) => {
+    const target = event.target as any;
+    const targetValue = target.value;
+    const newValue = value;
+    if (targetValue) {
+      const idx = value.findIndex((el) => el === targetValue);
+      if (idx !== -1) {
+        newValue.splice(idx, 1);
+      } else {
+        newValue.push(targetValue);
+      }
+    }
+    console.log('group change', newValue);
     onChange && typeof onChange === 'function' && onChange(newValue);
   };
   return (
@@ -74,14 +90,17 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
               value={option.value}
               name={name}
               disabled={disabled || option.disabled}
-              onChange={handleCheckboxClick}
+              onChange={handleCheckboxChange}
+              onClick={handleCheckboxClick}
             >
               {option.value}
             </Checkbox>
           );
         })
       ) : (
-        <CheckboxContext.Provider value={{ value, disabled, onChange: handleCheckboxClick }}>
+        <CheckboxContext.Provider
+          value={{ value, disabled, onChange: handleCheckboxChange, onClick: handleCheckboxClick }}
+        >
           {children}
         </CheckboxContext.Provider>
       )}
