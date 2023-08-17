@@ -1,4 +1,3 @@
-import internal from 'stream';
 import { Input as InternalInput } from './Input';
 import { Textarea } from './Textarea';
 
