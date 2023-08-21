@@ -20,11 +20,15 @@ export type InputProps = {
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
 } & Omit<React.HTMLAttributes<HTMLInputElement>, 'prefix' | 'suffix'>;
 
+interface TextareaAutoSizeObject {
+  minRows?: number;
+  maxRows?: number;
+}
 export type TextareaProps = {
   id?: string;
   value?: string;
   defaultValue?: string;
-  autoSize?: boolean;
+  autoSize?: boolean | TextareaAutoSizeObject;
   maxLength?: number;
   showCount?: boolean;
   allowClear?: boolean | { clearIcon: ReactNode };

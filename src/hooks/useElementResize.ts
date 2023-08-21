@@ -1,5 +1,8 @@
-import { ReactEventHandler, useCallback, useEffect, useRef } from 'react';
-
+import { useCallback, useEffect, useRef } from 'react';
+/*
+ * @params: onResize callback
+ * @description: observer Element resize behaviour and return ref of the observerd Element
+ */
 export type ResizeObject = {
   width: number;
   height: number;

@@ -15,7 +15,8 @@ $textarea-wrapper: '.built-in-textarea-wrapper';
 $textarea-wrapper-disabled: '.built-in-textarea-wrapper-disabled';
 $textarea-wrapper-borderless: '.built-in-textarea-wrapper-borderless';
 $textarea-inside-countSuffix: '.built-in-textarea-countSuffix';
-
+$textarea-inside-autoSize: '.built-in-textarea-autoSize';
+$textarea-inside-scrollbarless: '.built-in-textarea-scrollbarless';
 // textarea
 #{$textarea-wrapper} {
   position: relative;
@@ -84,6 +85,16 @@ $textarea-inside-countSuffix: '.built-in-textarea-countSuffix';
     &:disabled {
       background-color: transparent;
       cursor: not-allowed;
+    }
+    &#{$textarea-inside-autoSize} {
+      resize: none;
+    }
+    &#{$textarea-inside-scrollbarless} {
+      &::-webkit-scrollbar {
+        display: none; /* Chrome Safari */
+      }
+      scrollbar-width: none; /* firefox */
+      -ms-overflow-style: none; /* IE 10+ */
     }
   }
   #{$textarea-inside-countSuffix} {

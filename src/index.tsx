@@ -13,14 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <br />
-    <Input.Textarea
-      placeholder="dd"
-      maxLength={10}
-      showCount
-      onResize={(obj) => {
-        console.log(obj.width, obj.height);
-      }}
-    ></Input.Textarea>
+    <Input.Textarea placeholder="dd" showCount autoSize={{ minRows: 2, maxRows: 4 }}></Input.Textarea>
     <Input placeholder="dd" maxLength={10} prefix={<span>dd</span>} style={{ width: '100%', height: 40 }} />
     {/* {/* <Checkbox.Group
       defaultValue={['1', '2']}
