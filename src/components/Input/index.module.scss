@@ -67,19 +67,10 @@ $textarea-inside-scrollbarless: '.built-in-textarea-scrollbarless';
     background-color: #ffffff;
     background-image: none;
     border-radius: 6px;
-    transition: all 0.2s;
-    -webkit-transition:
-      all 0.3s,
-      height 0s;
-    -moz-transition:
-      all 0.3s,
-      height 0s;
-    -ms-transition:
-      all 0.3s,
-      height 0s;
-    -o-transition:
-      all 0.3s,
-      height 0s;
+    transition:
+      all 0.2s,
+      height 0s,
+      min-height 0s;
     &:placeholder-shown {
       text-overflow: ellipsis;
     }

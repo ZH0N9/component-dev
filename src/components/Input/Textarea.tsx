@@ -2,7 +2,7 @@ import style from './index.module.scss';
 import { TextareaProps, prefixTextareaClass } from './constants';
 import useElementResize from '../../hooks/useElementResize';
 import classNames from 'classnames';
-import { ChangeEvent, KeyboardEvent, useEffect, useMemo, useState, useRef, useLayoutEffect } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useMemo, useState, useRef } from 'react';
 
 export const Textarea = (props: TextareaProps) => {
   const {
@@ -25,6 +25,7 @@ export const Textarea = (props: TextareaProps) => {
 
   const [value, setValue] = useState(defaultValue || '');
   const [row, setRow] = useState(-Infinity);
+
   const lineHeightRef = useRef<number>();
   const heightRef = useRef<number>();
   // onResize Ref
@@ -35,24 +36,25 @@ export const Textarea = (props: TextareaProps) => {
   console.log('rerender');
   const textareaStyles = useMemo(() => {
     let sizeStyle;
-    if (lineHeightRef.current && heightRef.current && row !== -Infinity) {
+    if (lineHeightRef.current && heightRef.current) {
       sizeStyle = {
         minHeight:
           typeof autoSize === 'object' && autoSize.minRows
             ? autoSize.minRows * lineHeightRef.current + heightRef.current
-            : 'unset',
+            : '',
         maxHeight:
           typeof autoSize === 'object' && autoSize.maxRows
             ? autoSize.maxRows * lineHeightRef.current + heightRef.current
-            : 'unset',
-        height: row * lineHeightRef.current + heightRef.current,
+            : '',
+        height: row !== -Infinity ? row * lineHeightRef.current + heightRef.current : 'auto',
       };
     }
     return {
       ...propStyle,
       ...sizeStyle,
     };
-  }, [propStyle, heightRef, lineHeightRef, autoSize, row]);
+  }, [propStyle, heightRef, lineHeightRef, row, autoSize]);
+
   const textareaCls = classNames({
     [style[`${prefixTextareaClass}`]]: true,
     [style[`${prefixTextareaClass}-autoSize`]]: !!autoSize,
@@ -96,11 +98,14 @@ export const Textarea = (props: TextareaProps) => {
       const textAreaEl = textareaRef.current as HTMLTextAreaElement;
       const { paddingTop, paddingBottom, lineHeight, borderTopWidth, borderBottomWidth } =
         window.getComputedStyle(textAreaEl);
-      heightRef.current =
+      const contentHeight =
         parseFloat(paddingTop) + parseFloat(paddingBottom) + parseFloat(borderBottomWidth) + parseFloat(borderTopWidth);
-      lineHeightRef.current = parseFloat(lineHeight);
+      const fontLineHeight = parseFloat(lineHeight);
+
+      heightRef.current = contentHeight;
+      lineHeightRef.current = fontLineHeight;
     }
-  });
+  }, []);
 
   useEffect(() => {
     if (propValue) {
