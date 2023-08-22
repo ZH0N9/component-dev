@@ -24,42 +24,49 @@ export const Textarea = (props: TextareaProps) => {
   } = props;
 
   const [value, setValue] = useState(defaultValue || '');
-  const [row, setRow] = useState(-Infinity);
+  const [height, setHeight] = useState(-Infinity);
 
-  const lineHeightRef = useRef<number>();
-  const heightRef = useRef<number>();
+  const minHeightRef = useRef<number>();
+  const maxHeightRef = useRef<number>();
   // onResize Ref
   const textareaResizeRef = useElementResize(onResize);
   // end
   const textareaNormalRef = useRef(null);
   const textareaRef = onResize && typeof onResize === 'function' ? textareaResizeRef : textareaNormalRef;
+  const textareaFakeRef = useRef(null);
   console.log('rerender');
+  // Auto size #1
   const textareaStyles = useMemo(() => {
     let sizeStyle;
-    if (lineHeightRef.current && heightRef.current) {
+    if (autoSize && height !== -Infinity) {
       sizeStyle = {
-        minHeight:
-          typeof autoSize === 'object' && autoSize.minRows
-            ? autoSize.minRows * lineHeightRef.current + heightRef.current
-            : '',
-        maxHeight:
-          typeof autoSize === 'object' && autoSize.maxRows
-            ? autoSize.maxRows * lineHeightRef.current + heightRef.current
-            : '',
-        height: row !== -Infinity ? row * lineHeightRef.current + heightRef.current : 'auto',
+        minHeight: minHeightRef.current ? minHeightRef.current : '',
+        maxHeight: maxHeightRef.current ? maxHeightRef.current : '',
+        // minHeight:
+        //   typeof autoSize === 'object' && autoSize.minRows
+        //     ? autoSize.minRows * lineHeightRef.current + heightRef.current
+        //     : '',
+        // maxHeight:
+        //   typeof autoSize === 'object' && autoSize.maxRows
+        //     ? autoSize.maxRows * lineHeightRef.current + heightRef.current
+        //     : '',
+        height: height,
       };
     }
     return {
       ...propStyle,
       ...sizeStyle,
     };
-  }, [propStyle, heightRef, lineHeightRef, row, autoSize]);
+  }, [propStyle, autoSize, height, minHeightRef, maxHeightRef]);
 
   const textareaCls = classNames({
     [style[`${prefixTextareaClass}`]]: true,
     [style[`${prefixTextareaClass}-autoSize`]]: !!autoSize,
-    [style[`${prefixTextareaClass}-scrollbarless`]]:
-      typeof autoSize === 'object' && autoSize.maxRows ? (row <= autoSize.maxRows ? true : false) : true,
+    [style[`${prefixTextareaClass}-scrollbarless`]]: maxHeightRef.current
+      ? height <= maxHeightRef.current
+        ? true
+        : false
+      : true,
   });
   const wrapperCls = classNames({
     [style[`${prefixTextareaClass}-wrapper`]]: true,
@@ -74,6 +81,19 @@ export const Textarea = (props: TextareaProps) => {
       </span>
     ) : null;
   }, [maxLength, showCount, value]);
+
+  // fake textarea element to control the auto size
+  const fakeTextAreaView = useMemo(() => {
+    return (
+      <textarea
+        ref={textareaFakeRef}
+        className={style[`${prefixTextareaClass}`]}
+        style={{ visibility: 'hidden', position: 'absolute', top: '-1000px', left: 0, right: 0, zIndex: -999 }}
+        disabled={disabled}
+        maxLength={maxLength}
+      />
+    );
+  }, [disabled, maxLength]);
 
   const handleTextareaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     if (disabled) {
@@ -94,18 +114,29 @@ export const Textarea = (props: TextareaProps) => {
   };
 
   useEffect(() => {
-    if (textareaRef.current) {
-      const textAreaEl = textareaRef.current as HTMLTextAreaElement;
-      const { paddingTop, paddingBottom, lineHeight, borderTopWidth, borderBottomWidth } =
-        window.getComputedStyle(textAreaEl);
-      const contentHeight =
-        parseFloat(paddingTop) + parseFloat(paddingBottom) + parseFloat(borderBottomWidth) + parseFloat(borderTopWidth);
-      const fontLineHeight = parseFloat(lineHeight);
+    if (textareaFakeRef.current) {
+      const fakeTextAreaEl = textareaFakeRef.current as HTMLTextAreaElement;
+      if (typeof autoSize === 'object') {
+        const { minRows, maxRows } = autoSize;
+        fakeTextAreaEl.setAttribute('rows', `${minRows}`);
+        minHeightRef.current = fakeTextAreaEl.clientHeight;
 
-      heightRef.current = contentHeight;
-      lineHeightRef.current = fontLineHeight;
+        fakeTextAreaEl.setAttribute('rows', `${maxRows}`);
+        maxHeightRef.current = fakeTextAreaEl.clientHeight;
+
+        fakeTextAreaEl.setAttribute('rows', `1`);
+        // Auto size #1
+        // const textAreaEl = textareaRef.current as HTMLTextAreaElement;
+        // const { paddingTop, paddingBottom, lineHeight, borderTopWidth, borderBottomWidth } =
+        //  window.getComputedStyle(textAreaEl);
+        // const contentHeight =
+        //   parseFloat(paddingTop) + parseFloat(paddingBottom) + parseFloat(borderBottomWidth) + parseFloat(borderTopWidth);
+        // const fontLineHeight = parseFloat(lineHeight);
+        // heightRef.current = contentHeight;
+        // lineHeightRef.current = fontLineHeight;
+      }
     }
-  }, []);
+  });
 
   useEffect(() => {
     if (propValue) {
@@ -114,9 +145,11 @@ export const Textarea = (props: TextareaProps) => {
   }, [propValue]);
 
   useEffect(() => {
-    if (!!autoSize) {
-      const newRow = value.split('\n').length;
-      setRow(newRow);
+    if (autoSize && textareaFakeRef.current) {
+      const fakeTextAreaEl = textareaFakeRef.current as HTMLTextAreaElement;
+      fakeTextAreaEl.value = value;
+      const newHeight = fakeTextAreaEl.scrollHeight;
+      setHeight(newHeight);
     }
   }, [value, autoSize]);
 
@@ -134,6 +167,7 @@ export const Textarea = (props: TextareaProps) => {
         {...restProps}
       />
       {suffixView}
+      {autoSize ? fakeTextAreaView : null}
     </span>
   );
 };
