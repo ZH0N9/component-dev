@@ -9,6 +9,125 @@ $input-inside-clearIcon: '.built-in-input-clearIcon';
 $input-inside-clearIcon-hidden: '.built-in-input-clearIcon-hidden';
 $input-inside-clearIcon-default: '.built-in-input-clearIcon-default';
 $input-inside-countSuffix: '.built-in-input-countSuffix';
+
+$textarea-prefix: '.built-in-textarea';
+$textarea-wrapper: '.built-in-textarea-wrapper';
+$textarea-wrapper-disabled: '.built-in-textarea-wrapper-disabled';
+$textarea-wrapper-borderless: '.built-in-textarea-wrapper-borderless';
+$textarea-inside-countSuffix: '.built-in-textarea-countSuffix';
+$textarea-inside-autoSize: '.built-in-textarea-autoSize';
+$textarea-inside-scrollbarless: '.built-in-textarea-scrollbarless';
+// textarea
+#{$textarea-wrapper} {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  box-sizing: border-box;
+  display: inline-flex;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Col';
+  &:hover {
+    border-color: orange;
+    border-inline-end-width: 1px;
+  }
+  &:has(#{$textarea-prefix}:hover, #{$textarea-prefix}:focus) {
+    border-color: orange;
+    border-inline-end-width: 1px;
+  }
+  #{$textarea-prefix} {
+    vertical-align: bottom;
+    transition:
+      all 0.3s,
+      height 0s;
+    resize: vertical;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 4px 11px;
+    color: rgba(0, 0, 0, 0.88);
+    font-size: 14px;
+    line-height: 1.5714285714285714;
+    list-style: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    min-width: 0;
+    min-height: 32px;
+    outline: none;
+    border: none;
+    background-color: #ffffff;
+    background-image: none;
+    border-radius: 6px;
+    transition:
+      all 0.2s,
+      height 0s,
+      min-height 0s;
+    &:placeholder-shown {
+      text-overflow: ellipsis;
+    }
+    &:disabled {
+      background-color: transparent;
+      cursor: not-allowed;
+    }
+    &#{$textarea-inside-autoSize} {
+      resize: none;
+    }
+    &#{$textarea-inside-scrollbarless} {
+      &::-webkit-scrollbar {
+        display: none; /* Chrome Safari */
+      }
+      scrollbar-width: none; /* firefox */
+      -ms-overflow-style: none; /* IE 10+ */
+    }
+  }
+  #{$textarea-inside-countSuffix} {
+    position: absolute;
+    bottom: -22px;
+    color: rgba(0, 0, 0, 0.45);
+    white-space: nowrap;
+    pointer-events: none;
+    inset-inline-end: 0;
+  }
+}
+#{$textarea-wrapper-disabled} {
+  color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.04);
+  border-color: #d9d9d9;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 1;
+  #{$textarea-prefix} {
+    background-color: transparent;
+    cursor: not-allowed;
+  }
+  &:hover {
+    border-color: #d9d9d9;
+    border-inline-end-width: 1px;
+  }
+  &:has(#{$textarea-prefix}:hover, #{$textarea-prefix}:focus) {
+    border-color: #d9d9d9;
+    border-inline-end-width: 1px;
+  }
+}
+
+#{$textarea-wrapper-borderless} {
+  border: none;
+  &:hover {
+    border: none;
+  }
+  &:has(#{$textarea-prefix}:hover, #{$textarea-prefix}:focus) {
+    border: none;
+  }
+}
+// input
 #{$input-wrapper} {
   margin: 0;
   padding: 0;

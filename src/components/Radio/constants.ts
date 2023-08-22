@@ -1,4 +1,4 @@
-import { ReactNode, CSSProperties, FormEvent, MouseEventHandler, FormEventHandler } from 'react';
+import { ReactNode, CSSProperties, FormEventHandler, MouseEvent, MouseEventHandler } from 'react';
 
 type OptionType = 'default' | 'button';
 type OptionAlign = 'horizontal' | 'vertical';
@@ -17,6 +17,7 @@ export interface RadioProps extends React.HTMLAttributes<HTMLInputElement> {
   disabled?: boolean;
   defaultChecked?: boolean;
   onChange?: FormEventHandler;
+  onClick?: MouseEventHandler;
 }
 export interface RadioGroupProps {
   value?: string | number;

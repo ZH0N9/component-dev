@@ -1,4 +1,4 @@
-import { ReactNode, CSSProperties, FormEventHandler } from 'react';
+import { ReactNode, CSSProperties, FormEventHandler, MouseEventHandler } from 'react';
 
 type OptionAlign = 'horizontal' | 'vertical';
 export enum CheckboxOptionAlignMap {
@@ -28,7 +28,8 @@ export type CheckboxProps = {
   className?: string;
   style?: CSSProperties;
   onChange?: FormEventHandler;
-} & Omit<React.HTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>;
+  onClick?: MouseEventHandler;
+} & Omit<React.HTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'onClick'>;
 
 export interface CheckboxOptionType {
   label?: string;

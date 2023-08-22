@@ -1,4 +1,4 @@
-import { MouseEventHandler, useEffect, useRef, useState, useContext } from 'react';
+import { MouseEventHandler, useEffect, useRef, useState, useContext, ChangeEventHandler } from 'react';
 import { RadioProps, prefixClass } from './constants';
 import RadioContext from './context';
 import style from './index.module.scss';
@@ -13,12 +13,18 @@ export const Radio = (props: RadioProps) => {
     disabled: propDisabled,
     style: propsStyle,
     onChange,
+    onClick,
     ...restProps
   } = props;
 
-  const [checked, setChecked] = useState<Boolean>(!!defaultChecked);
-  const [disabled, setDisabled] = useState<Boolean>(!!propDisabled);
-  const { value: groupValue, disabled: groupDisabled, onChange: groupOnChange } = useContext(RadioContext);
+  const {
+    value: groupValue,
+    disabled: groupDisabled,
+    onChange: groupOnChange,
+    onClick: groupOnClick,
+  } = useContext(RadioContext);
+  const [checked, setChecked] = useState(defaultChecked || false);
+  const [disabled, setDisabled] = useState(propDisabled || false);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -26,17 +32,24 @@ export const Radio = (props: RadioProps) => {
       setChecked(propChecked);
     }
   }, [propChecked]);
+
   useEffect(() => {
     if (typeof propDisabled === 'boolean') {
       setDisabled(propDisabled);
     }
   }, [propDisabled]);
+
   // Group Controlled
   useEffect(() => {
     if (groupValue) {
+      console.log(groupValue, value);
       setChecked(value === groupValue);
     }
   }, [groupValue, value]);
+
+  useEffect(() => {
+    console.log(value, checked);
+  }, [checked, value]);
 
   const wrapperCls = classNames({
     [style[`${prefixClass}-wrapper`]]: true,
@@ -52,35 +65,41 @@ export const Radio = (props: RadioProps) => {
   });
 
   const handleClick: MouseEventHandler = (event) => {
-    if (groupDisabled || disabled || checked) {
+    console.log('click');
+    if (groupDisabled || disabled) {
       return;
     }
     if (!('checked' in props)) {
       setChecked(true);
     }
     if (inputRef.current) {
-      event.target = inputRef.current;
+      const input = inputRef.current as HTMLInputElement;
+      event.target = input;
     }
+    onClick && typeof onClick === 'function' && onClick(event);
+    groupOnClick && typeof groupOnClick === 'function' && groupOnClick(event);
+  };
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     onChange && typeof onChange === 'function' && onChange(event);
     groupOnChange && typeof groupOnChange === 'function' && groupOnChange(event);
   };
 
   return (
-    <label className={wrapperCls}>
+    <span className={wrapperCls} onClick={handleClick}>
       <span className={radioCls}>
         <input
           type="radio"
-          checked={!!checked}
+          checked={checked}
           value={value}
           ref={inputRef}
-          disabled={groupDisabled || !!disabled}
-          onClick={handleClick}
-          readOnly
+          disabled={groupDisabled || disabled}
+          onChange={handleChange}
           {...restProps}
         />
         <span className={radioInnerCls}></span>
       </span>
       {children && <span>{children}</span>}
-    </label>
+    </span>
   );
 };

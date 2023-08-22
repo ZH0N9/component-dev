@@ -9,7 +9,9 @@ export const Input = (props: InputProps) => {
     defaultValue,
     value: propValue,
     disabled,
+    // TODO
     addOnAfter,
+    // TODO
     addOnBefore,
     prefix,
     suffix,
@@ -62,11 +64,6 @@ export const Input = (props: InputProps) => {
     if (keyCode.toLowerCase() === 'enter') {
       onPressEnter && typeof onPressEnter === 'function' && onPressEnter(event);
     }
-    if (maxLength && maxLength >= 0) {
-      if (value.length >= Math.round(maxLength) && keyCode.toLowerCase() !== 'backspace') {
-        event.preventDefault();
-      }
-    }
     onKeyDown && typeof onKeyDown === 'function' && onKeyDown(event);
   };
 
@@ -109,9 +106,11 @@ export const Input = (props: InputProps) => {
     <span className={wrapperCls} style={propStyle}>
       {prefixView}
       <input
+        type="text"
         value={value}
         disabled={disabled}
         className={inputCls}
+        maxLength={maxLength}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
         {...restProps}
