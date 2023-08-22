@@ -2,8 +2,7 @@ import style from './index.module.scss';
 import { TextareaProps, prefixTextareaClass } from './constants';
 import useElementResize from '../../hooks/useElementResize';
 import classNames from 'classnames';
-import { ChangeEvent, KeyboardEvent, useEffect, useMemo, useState, useRef } from 'react';
-import { type } from 'os';
+import { ChangeEvent, KeyboardEvent, useEffect, useMemo, useState, useRef, useLayoutEffect } from 'react';
 
 export const Textarea = (props: TextareaProps) => {
   const {
@@ -25,7 +24,7 @@ export const Textarea = (props: TextareaProps) => {
   } = props;
 
   const [value, setValue] = useState(defaultValue || '');
-  const [row, setRow] = useState(1);
+  const [row, setRow] = useState(-Infinity);
   const lineHeightRef = useRef<number>();
   const heightRef = useRef<number>();
   // onResize Ref
@@ -33,10 +32,10 @@ export const Textarea = (props: TextareaProps) => {
   // end
   const textareaNormalRef = useRef(null);
   const textareaRef = onResize && typeof onResize === 'function' ? textareaResizeRef : textareaNormalRef;
-
+  console.log('rerender');
   const textareaStyles = useMemo(() => {
     let sizeStyle;
-    if (lineHeightRef.current && heightRef.current && autoSize) {
+    if (lineHeightRef.current && heightRef.current && row !== -Infinity) {
       sizeStyle = {
         minHeight:
           typeof autoSize === 'object' && autoSize.minRows
@@ -50,10 +49,10 @@ export const Textarea = (props: TextareaProps) => {
       };
     }
     return {
-      ...sizeStyle,
       ...propStyle,
+      ...sizeStyle,
     };
-  }, [propStyle, row, autoSize, heightRef, lineHeightRef]);
+  }, [propStyle, heightRef, lineHeightRef, autoSize, row]);
   const textareaCls = classNames({
     [style[`${prefixTextareaClass}`]]: true,
     [style[`${prefixTextareaClass}-autoSize`]]: !!autoSize,
@@ -65,6 +64,7 @@ export const Textarea = (props: TextareaProps) => {
     [style[`${prefixTextareaClass}-wrapper-disabled`]]: disabled,
     [style[`${prefixTextareaClass}-wrapper-borderless`]]: !bordered,
   });
+
   const suffixView = useMemo(() => {
     return showCount && maxLength && maxLength >= 0 ? (
       <span className={style[`${prefixTextareaClass}-countSuffix`]}>
@@ -93,17 +93,9 @@ export const Textarea = (props: TextareaProps) => {
 
   useEffect(() => {
     if (textareaRef.current) {
-      const { paddingTop, paddingBottom, lineHeight, borderTopWidth, borderBottomWidth } = window.getComputedStyle(
-        textareaRef.current,
-      );
-      console.log(
-        'paddingTop, paddingBottom, lineHeight, fontSize, borderTopWidth, borderBottomWidth: ',
-        paddingTop,
-        paddingBottom,
-        lineHeight,
-        borderTopWidth,
-        borderBottomWidth,
-      );
+      const textAreaEl = textareaRef.current as HTMLTextAreaElement;
+      const { paddingTop, paddingBottom, lineHeight, borderTopWidth, borderBottomWidth } =
+        window.getComputedStyle(textAreaEl);
       heightRef.current =
         parseFloat(paddingTop) + parseFloat(paddingBottom) + parseFloat(borderBottomWidth) + parseFloat(borderTopWidth);
       lineHeightRef.current = parseFloat(lineHeight);
@@ -117,9 +109,11 @@ export const Textarea = (props: TextareaProps) => {
   }, [propValue]);
 
   useEffect(() => {
-    const newRow = value.split('\n').length;
-    setRow(newRow);
-  }, [value]);
+    if (!!autoSize) {
+      const newRow = value.split('\n').length;
+      setRow(newRow);
+    }
+  }, [value, autoSize]);
 
   return (
     <span className={wrapperCls}>
