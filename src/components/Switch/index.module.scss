@@ -259,4 +259,8 @@ $switch-prefix-inner-unchecked: '.built-in-switch-inner-unchecked';
       background: orange;
     }
   }
+  * {
+    box-shadow: none;
+    cursor: not-allowed;
+  }
 }
