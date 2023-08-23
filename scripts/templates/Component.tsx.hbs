@@ -5,7 +5,7 @@ export const {{componentName}} = (props: {{componentName}}Props) => {
   const { children, className, ...restProps } = props; 
   const cls = classNames({[style[`${prefixClass}`]]:true, [className as string]:!!className }); 
   return (
-    <div className='{cls}' {...restProps}>
+    <div className={cls} {...restProps}>
       {children}
     </div>
   ) 
