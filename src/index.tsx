@@ -7,11 +7,22 @@ import Tag from './components/Tag';
 import Radio from './components/Radio';
 import Checkbox from './components/Checkbox';
 import Input from './components/Input';
+import Switch from './components/Switch';
 import reportWebVitals from './reportWebVitals';
+import { check } from 'prettier';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
+    <Switch
+      loading
+      defatultChecked={true}
+      onChange={(checked, switcher) => {
+        console.log(checked, switcher);
+      }}
+      unCheckedChildren={<span>1</span>}
+      checkedChildren={<span>checked</span>}
+    ></Switch>
     <br />
     <Input.Textarea
       placeholder="dd"

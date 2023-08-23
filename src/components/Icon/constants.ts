@@ -3,6 +3,7 @@ import { CSSProperties } from 'react';
 export interface iconProps {
   // icon name/type
   name: string;
+  wrapperClassName?: string;
   className?: string;
   color?: string;
   width?: number;

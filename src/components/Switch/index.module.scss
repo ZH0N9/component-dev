@@ -1,0 +1,266 @@
+$switch-prefix: '.built-in-switch';
+$switch-prefix-default: '.built-in-switch-default';
+$switch-prefix-small: '.built-in-switch-small';
+$switch-prefix-checked: '.built-in-switch-checked';
+$switch-prefix-disabled: '.built-in-switch-disabled';
+$switch-prefix-loading: '.built-in-switch-loading';
+$switch-prefix-animated: '.built-in-switch-animated';
+
+$switch-prefix-handler: '.built-in-switch-handler';
+$switch-prefix-handler-loading: '.built-in-switch-handler-loading';
+
+$switch-prefix-inner: '.built-in-switch-inner';
+$switch-prefix-inner-checked: '.built-in-switch-inner-checked';
+$switch-prefix-inner-unchecked: '.built-in-switch-inner-unchecked';
+
+#{$switch-prefix},
+#{$switch-prefix-default} {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 22px;
+  list-style: none;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    segoe ui,
+    Roboto,
+    helvetica neue,
+    Arial,
+    noto sans,
+    sans-serif,
+    apple color emoji,
+    segoe ui emoji,
+    segoe ui symbol,
+    noto color emoji;
+  position: relative;
+  display: inline-block;
+  min-width: 44px;
+  height: 22px;
+  vertical-align: middle;
+  background: rgba(0, 0, 0, 0.25);
+  border: 0;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.45);
+  }
+  &#{$switch-prefix-animated} {
+    #{$switch-prefix-handler} {
+      animation: switchBackward 350ms forwards;
+    }
+  }
+  &#{$switch-prefix-checked} {
+    background-color: orange;
+    &:hover {
+      background: rgb(255, 178, 35);
+    }
+    &#{$switch-prefix-animated} {
+      #{$switch-prefix-handler} {
+        animation: switchForward 350ms forwards;
+      }
+    }
+    #{$switch-prefix-handler} {
+      left: calc(100% - 20px);
+    }
+    #{$switch-prefix-inner} {
+      padding-inline-start: 9px;
+      padding-inline-end: 24px;
+      #{$switch-prefix-inner-checked} {
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+      }
+      #{$switch-prefix-inner-unchecked} {
+        margin-inline-start: calc(100% - 22px + 48px);
+        margin-inline-end: calc(-100% + 22px - 48px);
+      }
+    }
+  }
+  #{$switch-prefix-handler} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: 18px;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    border-radius: 9px;
+    background-color: #fff;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      inset-inline-end: 0;
+      bottom: 0;
+      inset-inline-start: 0;
+      background-color: #fff;
+      border-radius: 9px;
+    }
+    #{$switch-prefix-handler-loading} {
+      position: relative;
+      width: 75%;
+      height: 75%;
+    }
+  }
+  #{$switch-prefix-inner} {
+    display: block;
+    height: 100%;
+    padding-inline-start: 24px;
+    padding-inline-end: 9px;
+    overflow: hidden;
+    border-radius: 100px;
+    transition:
+      padding-inline-start 350ms ease-in-out,
+      padding-inline-end 350ms ease-in-out;
+    #{$switch-prefix-inner-checked},
+    #{$switch-prefix-inner-unchecked} {
+      display: block;
+      transition:
+        margin-inline-start 350ms ease-in-out,
+        margin-inline-end 350ms ease-in-out;
+    }
+    #{$switch-prefix-inner-checked} {
+      margin-inline-start: calc(-100% + 22px - 48px);
+      margin-inline-end: calc(100% - 22px + 48px);
+    }
+    #{$switch-prefix-inner-unchecked} {
+      margin-top: -22px;
+      margin-inline-start: 0;
+      margin-inline-end: 0;
+    }
+  }
+  @keyframes switchForward {
+    0% {
+      left: 2px;
+    }
+    50% {
+      left: 2px;
+      width: 24px;
+    }
+    100% {
+      left: calc(100% - 20px);
+      width: 18px;
+    }
+  }
+
+  @keyframes switchBackward {
+    0% {
+      left: calc(100% - 20px);
+      width: 18px;
+    }
+    50% {
+      left: calc(100% - 26px);
+      width: 24px;
+    }
+    100% {
+      left: 2px;
+      width: 18px;
+    }
+  }
+}
+#{$switch-prefix-small} {
+  min-width: 28px;
+  height: 16px;
+  line-height: 16px;
+  &#{$switch-prefix-animated} {
+    #{$switch-prefix-handler} {
+      animation: switchBackward 350ms forwards;
+    }
+  }
+  &#{$switch-prefix-checked} {
+    background-color: orange;
+    &:hover:not(#{$switch-prefix-disabled}) {
+      background: rgb(255, 178, 35);
+    }
+    &#{$switch-prefix-animated} {
+      #{$switch-prefix-handler} {
+        animation: switchForward 350ms forwards;
+      }
+    }
+    #{$switch-prefix-handler} {
+      left: calc(100% - 14px);
+    }
+    #{$switch-prefix-inner} {
+      padding-inline-start: 6px;
+      padding-inline-end: 18px;
+      #{$switch-prefix-inner-checked} {
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+      }
+      #{$switch-prefix-inner-unchecked} {
+        margin-inline-start: calc(100% - 16px + 36px);
+        margin-inline-end: calc(-100% + 16px - 36px);
+      }
+    }
+  }
+  #{$switch-prefix-handler} {
+    height: 12px;
+    width: 12px;
+    border-radius: 9px;
+    &::before {
+      border-radius: 9px;
+    }
+  }
+  #{$switch-prefix-inner} {
+    padding-inline-start: 18px;
+    padding-inline-end: 6px;
+    #{$switch-prefix-inner-checked} {
+      margin-inline-start: calc(-100% + 16px - 36px);
+      margin-inline-end: calc(100% - 16px + 36px);
+    }
+    #{$switch-prefix-inner-unchecked} {
+      margin-top: -16px;
+    }
+  }
+  @keyframes switchForward {
+    0% {
+      left: 2px;
+    }
+    50% {
+      left: 2px;
+      width: 16px;
+    }
+    100% {
+      left: calc(100% - 14px);
+      width: 12px;
+    }
+  }
+
+  @keyframes switchBackward {
+    0% {
+      left: calc(100% - 14px);
+      width: 12px;
+    }
+    50% {
+      left: calc(100% - 20px);
+      width: 16px;
+    }
+    100% {
+      left: 2px;
+      width: 12px;
+    }
+  }
+}
+
+#{$switch-prefix-disabled},
+#{$switch-prefix-loading} {
+  cursor: not-allowed;
+  opacity: 0.65;
+  &:hover {
+    background: rgba(0, 0, 0, 0.25);
+    &#{$switch-prefix-checked} {
+      background: orange;
+    }
+  }
+  * {
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
