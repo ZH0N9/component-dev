@@ -1,0 +1,14 @@
+$affix-prefix:".built-in-affix";
+
+#{$affix-prefix}{
+    position: relative;
+    line-height: 1;
+    white-space: nowrap;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+}
+
