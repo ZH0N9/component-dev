@@ -11,10 +11,11 @@ try {
 }
 
 const Icon = (props: iconProps) => {
-  const { name, color, className, width, height, style: propStyle, spin = false, onClick } = props;
+  const { name, color, wrapperClassName, className, width, height, style: propStyle, spin = false, onClick } = props;
   const cls = classNames({
     [style[`${prefixClass}`]]: true,
     [style[`${prefixClass}-spin`]]: spin,
+    [wrapperClassName as string]: !!wrapperClassName,
   });
   const symbolId = `#icon-${name}`;
   return (
@@ -22,7 +23,7 @@ const Icon = (props: iconProps) => {
       <svg
         className={className}
         aria-hidden="true"
-        style={{ width: width ? width : '1em', height: height ? height : '1em', color, ...propStyle }}
+        style={{ width: width ? width : '100%', height: height ? height : '100%', color, ...propStyle }}
         fill={color}
       >
         <use href={symbolId} fill={color} />

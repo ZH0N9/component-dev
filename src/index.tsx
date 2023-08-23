@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <Switch
-      size="small"
+      loading
       defatultChecked={true}
       onChange={(checked, switcher) => {
         console.log(checked, switcher);

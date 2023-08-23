@@ -3,8 +3,12 @@ $switch-prefix-default: '.built-in-switch-default';
 $switch-prefix-small: '.built-in-switch-small';
 $switch-prefix-checked: '.built-in-switch-checked';
 $switch-prefix-disabled: '.built-in-switch-disabled';
+$switch-prefix-loading: '.built-in-switch-loading';
 $switch-prefix-animated: '.built-in-switch-animated';
+
 $switch-prefix-handler: '.built-in-switch-handler';
+$switch-prefix-handler-loading: '.built-in-switch-handler-loading';
+
 $switch-prefix-inner: '.built-in-switch-inner';
 $switch-prefix-inner-checked: '.built-in-switch-inner-checked';
 $switch-prefix-inner-unchecked: '.built-in-switch-inner-unchecked';
@@ -43,7 +47,7 @@ $switch-prefix-inner-unchecked: '.built-in-switch-inner-unchecked';
   transition: all 0.2s;
   user-select: none;
 
-  &:hover:not(#{$switch-prefix-disabled}) {
+  &:hover {
     background: rgba(0, 0, 0, 0.45);
   }
   &#{$switch-prefix-animated} {
@@ -53,7 +57,7 @@ $switch-prefix-inner-unchecked: '.built-in-switch-inner-unchecked';
   }
   &#{$switch-prefix-checked} {
     background-color: orange;
-    &:hover:not(#{$switch-prefix-disabled}) {
+    &:hover {
       background: rgb(255, 178, 35);
     }
     &#{$switch-prefix-animated} {
@@ -78,6 +82,9 @@ $switch-prefix-inner-unchecked: '.built-in-switch-inner-unchecked';
     }
   }
   #{$switch-prefix-handler} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     height: 18px;
     top: 2px;
@@ -95,6 +102,11 @@ $switch-prefix-inner-unchecked: '.built-in-switch-inner-unchecked';
       inset-inline-start: 0;
       background-color: #fff;
       border-radius: 9px;
+    }
+    #{$switch-prefix-handler-loading} {
+      position: relative;
+      width: 75%;
+      height: 75%;
     }
   }
   #{$switch-prefix-inner} {
@@ -237,7 +249,14 @@ $switch-prefix-inner-unchecked: '.built-in-switch-inner-unchecked';
   }
 }
 
-#{$switch-prefix-disabled} {
+#{$switch-prefix-disabled},
+#{$switch-prefix-loading} {
   cursor: not-allowed;
   opacity: 0.65;
+  &:hover {
+    background: rgba(0, 0, 0, 0.25);
+    &#{$switch-prefix-checked} {
+      background: orange;
+    }
+  }
 }

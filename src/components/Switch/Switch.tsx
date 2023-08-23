@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import { SwitchProps, prefixClass } from './constants';
 import style from './index.module.scss';
 import classNames from 'classnames';
+import Icon from '../Icon';
 export const Switch = (props: SwitchProps) => {
   const {
     children,
@@ -10,13 +11,14 @@ export const Switch = (props: SwitchProps) => {
     defatultChecked,
     checked: propChecked,
     disabled,
+    loading = false,
     checkedChildren,
     unCheckedChildren,
     onChange,
     onClick,
     ...restProps
   } = props;
-  const [checked, setChecked] = useState(defatultChecked || false);
+  const [checked, setChecked] = useState(defatultChecked || propChecked || false);
   const switcherRef = useRef<HTMLButtonElement>(null);
   const animated = useRef(false);
   const switchCls = classNames({
@@ -24,12 +26,13 @@ export const Switch = (props: SwitchProps) => {
     [style[`${prefixClass}-${size}`]]: size,
     [style[`${prefixClass}-checked`]]: checked,
     [style[`${prefixClass}-disabled`]]: disabled,
+    [style[`${prefixClass}-loading`]]: loading,
     [style[`${prefixClass}-animated`]]: animated.current,
     [className as string]: !!className,
   });
 
   const handleSwitchClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (disabled) {
+    if (disabled || loading) {
       return;
     }
     if (!('checked' in props)) {
@@ -69,8 +72,18 @@ export const Switch = (props: SwitchProps) => {
       className={switchCls}
       aria-checked={checked}
       onClick={handleSwitchClick}
+      {...restProps}
     >
-      <div className={style[`${prefixClass}-handler`]}></div>
+      <div className={style[`${prefixClass}-handler`]}>
+        {loading ? (
+          <Icon
+            wrapperClassName={style[`${prefixClass}-handler-loading`]}
+            name="switch-loading"
+            color={disabled || !checked ? 'rgba(0, 0, 0, 0.25)' : 'orange'}
+            spin
+          />
+        ) : null}
+      </div>
       <span className={style[`${prefixClass}-inner`]}>
         {checkedChildren && <span className={style[`${prefixClass}-inner-checked`]}>{checkedChildren}</span>}
         {unCheckedChildren && <span className={style[`${prefixClass}-inner-unchecked`]}>{unCheckedChildren}</span>}

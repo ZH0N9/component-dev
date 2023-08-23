@@ -4,6 +4,7 @@ export type SwitchProps = {
   defatultChecked?: boolean;
   checkedChildren?: ReactNode;
   unCheckedChildren?: ReactNode;
+  loading?: boolean;
   disabled?: boolean;
   className?: string;
   style?: CSSProperties;
