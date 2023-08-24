@@ -28,6 +28,9 @@ root.render(
       placeholder="dd"
       showCount
       autoSize={{ minRows: 2, maxRows: 3 }}
+      onResize={(obj) => {
+        console.log(obj.width, obj.height);
+      }}
       style={{ height: 78 }}
     ></Input.Textarea>
     <Input placeholder="dd" maxLength={10} prefix={<span>dd</span>} style={{ width: '100%', height: 40 }} />
