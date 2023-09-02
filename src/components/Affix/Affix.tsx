@@ -70,15 +70,7 @@ export const Affix = (props: AffixProps) => {
     const targetRect = getElementRect(target);
 
     const fixedTop = getFixedTop(targetRect, placeholderRect, offsetTop);
-    console.log('fixedTop : ', fixedTop);
     const fixedBottom = getFixedBottom(targetRect, placeholderRect, offsetBottom);
-
-    // console.log(fixedRect.top);
-    // console.log(window.innerHeight, window.innerHeight - fixedRect.bottom);
-    // console.log('origin top -  scroll top', originTop - scrollTop);
-    // console.log('scroll top', scrollTop);
-    // if fixedTop undefined or original top has been already smaller than fixedTop, no operation
-    console.log('placeholder top', placeholderRect.top);
     if (fixedTop !== undefined) {
       if (placeholderNodeTop <= fixedTop && !affixed) {
         setAffixStyle({
@@ -94,7 +86,6 @@ export const Affix = (props: AffixProps) => {
     // if fixedBottom undefined or original bottom has been already higher than fixedBottom, no operation
     else if (fixedBottom !== undefined) {
       if (placeholderNodeBottom >= fixedBottom && !affixed) {
-        console.log('set bottom styles');
         setAffixStyle({
           position: 'fixed',
           bottom: fixedBottom,
