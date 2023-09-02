@@ -48,7 +48,12 @@ root.render(
     <br />
     <br />
     <br />
-    <Affix offsetBottom={300}>
+    <Affix
+      offsetBottom={300}
+      onChange={(affixed) => {
+        console.log(affixed);
+      }}
+    >
       <Input.Textarea></Input.Textarea>
     </Affix>
     <br />

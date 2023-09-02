@@ -32,11 +32,13 @@ export const Affix = (props: AffixProps) => {
     target = window,
     children,
     className,
+    onChange,
     ...restProps
   } = props;
 
   const [affixStyle, setAffixStyle] = useState<AffixStyleType>();
   const [placeholderStyle, setPlaceholderStyle] = useState<PlaceholderStyleType>();
+  const [affixed, setAffixed] = useState(false);
   const originPosition = useRef<PositionType>({ top: Infinity, bottom: Infinity });
 
   const affixCls = classNames({ [style[`${prefixClass}`]]: true, [className as string]: !!className });
@@ -50,6 +52,8 @@ export const Affix = (props: AffixProps) => {
   const handleReset = () => {
     setAffixStyle(undefined);
     setPlaceholderStyle(undefined);
+    setAffixed(false);
+    //  onChange && typeof onChange === 'function' && onChange(false);
   };
   const handleUpdateSize = (newSize: SizeInfo) => {
     // Only update when size change to avoid infinite loop at initial rendering
@@ -75,12 +79,12 @@ export const Affix = (props: AffixProps) => {
       typeof target === typeof window ? document.documentElement.scrollTop : (target as HTMLElement).scrollTop;
     // console.log(fixedRect.top);
     // console.log(window.innerHeight, window.innerHeight - fixedRect.bottom);
-    console.log('origin top -  scroll top', originTop - scrollTop);
-    console.log('scroll top', scrollTop);
+    // console.log('origin top -  scroll top', originTop - scrollTop);
+    // console.log('scroll top', scrollTop);
     // if fixedTop undefined or original top has been already smaller than fixedTop, no operation
     if (fixedTop !== undefined) {
       const fixedNodeTop = fixedRect.top;
-      if (fixedNodeTop <= fixedTop) {
+      if (fixedNodeTop <= fixedTop && !affixed) {
         setAffixStyle({
           position: 'fixed',
           top: fixedTop,
@@ -88,12 +92,13 @@ export const Affix = (props: AffixProps) => {
           height: fixedRect.height,
         });
         setPlaceholderStyle({ width: fixedRect.width, height: fixedRect.height });
+        setAffixed(true);
       }
     }
     // if fixedBottom undefined or original bottom has been already higher than fixedBottom, no operation
     else if (fixedBottom !== undefined) {
       const fixedNodeBottom = window.innerHeight - fixedRect.bottom;
-      if (fixedNodeBottom >= fixedBottom) {
+      if (fixedNodeBottom >= fixedBottom && !affixed) {
         console.log('set bottom styles');
         setAffixStyle({
           position: 'fixed',
@@ -102,24 +107,27 @@ export const Affix = (props: AffixProps) => {
           height: fixedRect.height,
         });
         setPlaceholderStyle({ width: fixedRect.width, height: fixedRect.height });
+        setAffixed(true);
       }
     }
 
     // TODO
-    if (offsetTop !== undefined && offsetBottom === undefined && originTop - scrollTop >= offsetTop) {
+    if (offsetTop !== undefined && affixed && originTop - scrollTop >= offsetTop) {
       handleReset();
-    } else if (
-      offsetBottom !== undefined &&
-      offsetTop === undefined &&
-      originBottom - scrollTop >= window.innerHeight - offsetBottom
-    ) {
+    } else if (offsetBottom !== undefined && affixed && originBottom - scrollTop >= window.innerHeight - offsetBottom) {
       handleReset();
     }
   };
 
+  const throttledHandleUpdatePosition = throttle(handleUpdatePosition, 1000 / 60);
+
   const fixNodeRef = useElementResize(handleUpdateSize);
 
   useEffect(() => {
+    onChange && typeof onChange === 'function' && onChange(affixed);
+  }, [affixed, onChange]);
+
+  useLayoutEffect(() => {
     console.log('init effect');
     const fixedEl = fixNodeRef.current;
     const { top: originTop, bottom: originBottom } = originPosition.current;
@@ -129,7 +137,6 @@ export const Affix = (props: AffixProps) => {
       originPosition.current = { top, bottom };
       handleUpdatePosition();
     }
-    const throttledHandleUpdatePosition = throttle(handleUpdatePosition, 1000 / 60);
     target.addEventListener('scroll', throttledHandleUpdatePosition);
     return () => {
       target.removeEventListener('scroll', throttledHandleUpdatePosition);

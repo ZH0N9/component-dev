@@ -6,6 +6,7 @@ export interface AffixProps {
   offsetBottom?: number;
   offsetTop?: number;
   target?: HTMLElement;
+  onChange?: (affixed?: boolean) => void;
 }
 
 export const prefixClass = 'built-in-affix';
