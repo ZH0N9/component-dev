@@ -20,10 +20,6 @@ type AffixStyleType = {
   width?: number;
   height?: number;
 };
-type PositionType = {
-  top: number;
-  bottom: number;
-};
 
 export const Affix = (props: AffixProps) => {
   const {
@@ -39,7 +35,6 @@ export const Affix = (props: AffixProps) => {
   const [affixStyle, setAffixStyle] = useState<AffixStyleType>();
   const [placeholderStyle, setPlaceholderStyle] = useState<PlaceholderStyleType>();
   const [affixed, setAffixed] = useState(false);
-  const originPosition = useRef<PositionType>({ top: Infinity, bottom: Infinity });
 
   const affixCls = classNames({ [style[`${prefixClass}`]]: true, [className as string]: !!className });
 
@@ -53,9 +48,9 @@ export const Affix = (props: AffixProps) => {
     setAffixStyle(undefined);
     setPlaceholderStyle(undefined);
     setAffixed(false);
-    //  onChange && typeof onChange === 'function' && onChange(false);
   };
   const handleUpdateSize = (newSize: SizeInfo) => {
+    console.log('resize');
     // Only update when size change to avoid infinite loop at initial rendering
     if (placeholderStyle?.width === newSize.width && placeholderStyle?.height === newSize.height) {
       return;
@@ -63,58 +58,55 @@ export const Affix = (props: AffixProps) => {
     setPlaceholderStyle({ ...newSize });
   };
   const handleUpdatePosition = () => {
-    const { top: originTop, bottom: originBottom } = originPosition.current;
-    if (!fixNodeRef.current || !target || (originTop === Infinity && originBottom === Infinity)) {
+    if (!fixNodeRef.current || !target || !placeholderNodeRef.current) {
       return;
     }
-    const fixedEl = fixNodeRef.current as HTMLDivElement;
+    const placeholderEl = placeholderNodeRef.current as HTMLDivElement;
     const offsetTop = getOffsetTop();
     const offsetBottom = getOffsetBottom();
-    const fixedRect = getElementRect(fixedEl);
+    const placeholderRect = getElementRect(placeholderEl);
+    const placeholderNodeTop = placeholderRect.top;
+    const placeholderNodeBottom = window.innerHeight - placeholderRect.bottom;
     const targetRect = getElementRect(target);
 
-    const fixedTop = getFixedTop(targetRect, fixedRect, offsetTop);
-    const fixedBottom = getFixedBottom(targetRect, fixedRect, offsetBottom);
-    const scrollTop =
-      typeof target === typeof window ? document.documentElement.scrollTop : (target as HTMLElement).scrollTop;
+    const fixedTop = getFixedTop(targetRect, placeholderRect, offsetTop);
+    console.log('fixedTop : ', fixedTop);
+    const fixedBottom = getFixedBottom(targetRect, placeholderRect, offsetBottom);
+
     // console.log(fixedRect.top);
     // console.log(window.innerHeight, window.innerHeight - fixedRect.bottom);
     // console.log('origin top -  scroll top', originTop - scrollTop);
     // console.log('scroll top', scrollTop);
     // if fixedTop undefined or original top has been already smaller than fixedTop, no operation
+    console.log('placeholder top', placeholderRect.top);
     if (fixedTop !== undefined) {
-      const fixedNodeTop = fixedRect.top;
-      if (fixedNodeTop <= fixedTop && !affixed) {
+      if (placeholderNodeTop <= fixedTop && !affixed) {
         setAffixStyle({
           position: 'fixed',
           top: fixedTop,
-          width: fixedRect.width,
-          height: fixedRect.height,
+          width: placeholderRect.width,
+          height: placeholderRect.height,
         });
-        setPlaceholderStyle({ width: fixedRect.width, height: fixedRect.height });
+        setPlaceholderStyle({ width: placeholderRect.width, height: placeholderRect.height });
         setAffixed(true);
       }
     }
     // if fixedBottom undefined or original bottom has been already higher than fixedBottom, no operation
     else if (fixedBottom !== undefined) {
-      const fixedNodeBottom = window.innerHeight - fixedRect.bottom;
-      if (fixedNodeBottom >= fixedBottom && !affixed) {
+      if (placeholderNodeBottom >= fixedBottom && !affixed) {
         console.log('set bottom styles');
         setAffixStyle({
           position: 'fixed',
           bottom: fixedBottom,
-          width: fixedRect.width,
-          height: fixedRect.height,
+          width: placeholderRect.width,
+          height: placeholderRect.height,
         });
-        setPlaceholderStyle({ width: fixedRect.width, height: fixedRect.height });
+        setPlaceholderStyle({ width: placeholderRect.width, height: placeholderRect.height });
         setAffixed(true);
       }
     }
 
-    // TODO
-    if (offsetTop !== undefined && affixed && originTop - scrollTop >= offsetTop) {
-      handleReset();
-    } else if (offsetBottom !== undefined && affixed && originBottom - scrollTop >= window.innerHeight - offsetBottom) {
+    if ((fixedTop === undefined && affixStyle?.top) || (fixedBottom === undefined && affixStyle?.bottom)) {
       handleReset();
     }
   };
@@ -122,6 +114,7 @@ export const Affix = (props: AffixProps) => {
   const throttledHandleUpdatePosition = throttle(handleUpdatePosition, 1000 / 60);
 
   const fixNodeRef = useElementResize(handleUpdateSize);
+  const placeholderNodeRef = useElementResize(handleUpdateSize);
 
   useEffect(() => {
     onChange && typeof onChange === 'function' && onChange(affixed);
@@ -129,14 +122,7 @@ export const Affix = (props: AffixProps) => {
 
   useLayoutEffect(() => {
     console.log('init effect');
-    const fixedEl = fixNodeRef.current;
-    const { top: originTop, bottom: originBottom } = originPosition.current;
-    // Record the original position of the affixed element
-    if (fixedEl && originTop === Infinity && originBottom === Infinity) {
-      const { top, bottom } = getElementRect(fixedEl);
-      originPosition.current = { top, bottom };
-      handleUpdatePosition();
-    }
+    handleUpdatePosition();
     target.addEventListener('scroll', throttledHandleUpdatePosition);
     return () => {
       target.removeEventListener('scroll', throttledHandleUpdatePosition);
@@ -144,7 +130,7 @@ export const Affix = (props: AffixProps) => {
   });
 
   return (
-    <div {...restProps}>
+    <div ref={placeholderNodeRef} {...restProps}>
       {affixStyle && <div aria-hidden={true} style={{ ...placeholderStyle }}></div>}
       <div className={affixCls} ref={fixNodeRef} style={affixStyle}>
         {children}
