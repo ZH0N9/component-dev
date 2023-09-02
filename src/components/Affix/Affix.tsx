@@ -62,9 +62,17 @@ export const Affix = (props: AffixProps) => {
       return;
     }
     const placeholderEl = placeholderNodeRef.current as HTMLDivElement;
+    const placeholderRect = getElementRect(placeholderEl);
+    if (
+      placeholderRect.width === 0 &&
+      placeholderRect.height === 0 &&
+      placeholderRect.top === 0 &&
+      placeholderRect.left === 0
+    ) {
+      return;
+    }
     const offsetTop = getOffsetTop();
     const offsetBottom = getOffsetBottom();
-    const placeholderRect = getElementRect(placeholderEl);
     const placeholderNodeTop = placeholderRect.top;
     const placeholderNodeBottom = window.innerHeight - placeholderRect.bottom;
     const targetRect = getElementRect(target);
