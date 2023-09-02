@@ -13,7 +13,7 @@ export const getFixedTop = (targetRect: DOMRect, fixRect: DOMRect, offsetTop?: n
 };
 export const getFixedBottom = (targetRect: DOMRect, fixRect: DOMRect, offsetBottom?: number) => {
   // the fixEl reach the offset top threshold
-  if (offsetBottom !== undefined && targetRect.bottom <= fixRect.bottom + offsetBottom) {
+  if (offsetBottom !== undefined && targetRect.bottom >= fixRect.bottom + offsetBottom) {
     return window.innerHeight - targetRect.bottom + offsetBottom;
   }
   return undefined;

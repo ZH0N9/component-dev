@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { AffixProps, prefixClass } from './constants';
 import { SizeInfo } from '../../hooks/useElementResize';
 import { throttle } from '../../utils';
@@ -20,6 +20,10 @@ type AffixStyleType = {
   width?: number;
   height?: number;
 };
+type PositionType = {
+  top: number;
+  bottom: number;
+};
 
 export const Affix = (props: AffixProps) => {
   const {
@@ -33,6 +37,11 @@ export const Affix = (props: AffixProps) => {
 
   const [affixStyle, setAffixStyle] = useState<AffixStyleType>();
   const [placeholderStyle, setPlaceholderStyle] = useState<PlaceholderStyleType>();
+  const originPosition = useRef<PositionType>({ top: Infinity, bottom: Infinity });
+
+  useLayoutEffect(() => {
+    console.log(affixStyle);
+  }, [affixStyle]);
 
   const affixCls = classNames({ [style[`${prefixClass}`]]: true, [className as string]: !!className });
 
@@ -51,50 +60,69 @@ export const Affix = (props: AffixProps) => {
     if (placeholderStyle?.width === newSize.width && placeholderStyle?.height === newSize.height) {
       return;
     }
-    console.log('set size');
     setPlaceholderStyle({ ...newSize });
   };
   const handleUpdatePosition = () => {
-    if (!fixNodeRef.current || !target) {
+    const { top: originTop, bottom: originBottom } = originPosition.current;
+    if (!fixNodeRef.current || !target || (originTop === Infinity && originBottom === Infinity)) {
       return;
     }
-    const fixEl = fixNodeRef.current as HTMLDivElement;
+    const fixedEl = fixNodeRef.current as HTMLDivElement;
     const offsetTop = getOffsetTop();
     const offsetBottom = getOffsetBottom();
-    const fixRect = getElementRect(fixEl);
+    const fixedRect = getElementRect(fixedEl);
     const targetRect = getElementRect(target);
-    console.log(targetRect);
-    const fixedTop = getFixedTop(targetRect, fixRect, offsetTop);
-    const fixedBottom = getFixedBottom(targetRect, fixRect, offsetBottom);
 
-    if (fixedTop !== undefined) {
-      setAffixStyle({
-        position: 'fixed',
-        top: fixedTop,
-        width: fixRect.width,
-        height: fixRect.height,
-      });
-    } else if (fixedBottom !== undefined) {
-      setAffixStyle({
-        position: 'fixed',
-        bottom: fixedBottom,
-        width: fixRect.width,
-        height: fixRect.height,
-      });
-    }
+    const fixedTop = getFixedTop(targetRect, fixedRect, offsetTop);
+    console.log('fixedTop : ', fixedTop);
+    const fixedBottom = getFixedBottom(targetRect, fixedRect, offsetBottom);
+    console.log('fixedBottom: ', fixedBottom);
     const scrollTop =
       typeof target === typeof window ? document.documentElement.scrollTop : (target as HTMLElement).scrollTop;
-    console.log(scrollTop);
-    // TODO
-    if ((offsetTop !== undefined && scrollTop < offsetTop) || offsetBottom !== undefined) {
-      handleReset();
+    console.log(fixedRect.top);
+    console.log(window.innerHeight, window.innerHeight - fixedRect.bottom);
+    // if fixedTop undefined or original top has been already smaller than fixedTop, no operation
+    if (fixedTop !== undefined) {
+      const fixedNodeTop = fixedRect.top;
+      if (fixedNodeTop <= fixedTop) {
+        setAffixStyle({
+          position: 'fixed',
+          top: fixedTop,
+          width: fixedRect.width,
+          height: fixedRect.height,
+        });
+      }
     }
+    // if fixedBottom undefined or original bottom has been already higher than fixedBottom, no operation
+    else if (fixedBottom !== undefined) {
+      const fixedNodeBottom = window.innerHeight - fixedRect.bottom;
+      if (fixedNodeBottom >= fixedBottom) {
+        setAffixStyle({
+          position: 'fixed',
+          bottom: fixedBottom,
+          width: fixedRect.width,
+          height: fixedRect.height,
+        });
+      }
+    }
+
+    // TODO
+    // if (offsetTop !== undefined && scrollTop < offsetTop && offsetBottom === undefined) {
+    //   handleReset();
+    // }
   };
 
   const fixNodeRef = useElementResize(handleUpdateSize);
 
   useEffect(() => {
     console.log('init effect');
+    const fixedEl = fixNodeRef.current;
+    // Record the original position of the affixed element
+    if (fixedEl) {
+      const { top, bottom } = getElementRect(fixedEl);
+      originPosition.current = { top, bottom };
+      handleUpdatePosition();
+    }
     const throttledHandleUpdatePosition = throttle(handleUpdatePosition, 1000 / 60);
     target.addEventListener('scroll', throttledHandleUpdatePosition);
     return () => {

@@ -1,5 +1,4 @@
-import classNames from 'classnames';
-import { ReactNode, CSSProperties } from 'react';
+import { ReactNode } from 'react';
 export interface AffixProps {
   children?: ReactNode;
   rootClassName?: string;
