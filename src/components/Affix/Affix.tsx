@@ -39,10 +39,6 @@ export const Affix = (props: AffixProps) => {
   const [placeholderStyle, setPlaceholderStyle] = useState<PlaceholderStyleType>();
   const originPosition = useRef<PositionType>({ top: Infinity, bottom: Infinity });
 
-  useLayoutEffect(() => {
-    console.log(affixStyle);
-  }, [affixStyle]);
-
   const affixCls = classNames({ [style[`${prefixClass}`]]: true, [className as string]: !!className });
 
   const getOffsetTop = () => {
@@ -74,13 +70,13 @@ export const Affix = (props: AffixProps) => {
     const targetRect = getElementRect(target);
 
     const fixedTop = getFixedTop(targetRect, fixedRect, offsetTop);
-    console.log('fixedTop : ', fixedTop);
     const fixedBottom = getFixedBottom(targetRect, fixedRect, offsetBottom);
-    console.log('fixedBottom: ', fixedBottom);
     const scrollTop =
       typeof target === typeof window ? document.documentElement.scrollTop : (target as HTMLElement).scrollTop;
-    console.log(fixedRect.top);
-    console.log(window.innerHeight, window.innerHeight - fixedRect.bottom);
+    // console.log(fixedRect.top);
+    // console.log(window.innerHeight, window.innerHeight - fixedRect.bottom);
+    console.log('origin top -  scroll top', originTop - scrollTop);
+    console.log('scroll top', scrollTop);
     // if fixedTop undefined or original top has been already smaller than fixedTop, no operation
     if (fixedTop !== undefined) {
       const fixedNodeTop = fixedRect.top;
@@ -91,25 +87,34 @@ export const Affix = (props: AffixProps) => {
           width: fixedRect.width,
           height: fixedRect.height,
         });
+        setPlaceholderStyle({ width: fixedRect.width, height: fixedRect.height });
       }
     }
     // if fixedBottom undefined or original bottom has been already higher than fixedBottom, no operation
     else if (fixedBottom !== undefined) {
       const fixedNodeBottom = window.innerHeight - fixedRect.bottom;
       if (fixedNodeBottom >= fixedBottom) {
+        console.log('set bottom styles');
         setAffixStyle({
           position: 'fixed',
           bottom: fixedBottom,
           width: fixedRect.width,
           height: fixedRect.height,
         });
+        setPlaceholderStyle({ width: fixedRect.width, height: fixedRect.height });
       }
     }
 
     // TODO
-    // if (offsetTop !== undefined && scrollTop < offsetTop && offsetBottom === undefined) {
-    //   handleReset();
-    // }
+    if (offsetTop !== undefined && offsetBottom === undefined && originTop - scrollTop >= offsetTop) {
+      handleReset();
+    } else if (
+      offsetBottom !== undefined &&
+      offsetTop === undefined &&
+      originBottom - scrollTop >= window.innerHeight - offsetBottom
+    ) {
+      handleReset();
+    }
   };
 
   const fixNodeRef = useElementResize(handleUpdateSize);
@@ -117,8 +122,9 @@ export const Affix = (props: AffixProps) => {
   useEffect(() => {
     console.log('init effect');
     const fixedEl = fixNodeRef.current;
+    const { top: originTop, bottom: originBottom } = originPosition.current;
     // Record the original position of the affixed element
-    if (fixedEl) {
+    if (fixedEl && originTop === Infinity && originBottom === Infinity) {
       const { top, bottom } = getElementRect(fixedEl);
       originPosition.current = { top, bottom };
       handleUpdatePosition();
@@ -132,7 +138,7 @@ export const Affix = (props: AffixProps) => {
 
   return (
     <div {...restProps}>
-      {affixStyle && <div aria-hidden={true} style={placeholderStyle}></div>}
+      {affixStyle && <div aria-hidden={true} style={{ ...placeholderStyle }}></div>}
       <div className={affixCls} ref={fixNodeRef} style={affixStyle}>
         {children}
       </div>

@@ -15,9 +15,14 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <br />
-    {/* <Affix offsetTop={30}>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <Affix offsetTop={30}>
       <Input.Textarea></Input.Textarea>
-    </Affix> */}
+    </Affix>
     <br />
     <br />
     <br />
