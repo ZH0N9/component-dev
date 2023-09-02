@@ -77,7 +77,7 @@ export const Switch = (props: SwitchProps) => {
       <div className={style[`${prefixClass}-handler`]}>
         {loading ? (
           <Icon
-            wrapperClassName={style[`${prefixClass}-handler-loading`]}
+            rootClassName={style[`${prefixClass}-handler-loading`]}
             name="switch-loading"
             color={disabled || !checked ? 'rgba(0, 0, 0, 0.25)' : 'orange'}
             spin

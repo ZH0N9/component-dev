@@ -1,0 +1,6 @@
+$affix-prefix: '.built-in-affix';
+
+#{$affix-prefix} {
+  //   position: fixed;
+  z-index: 10;
+}

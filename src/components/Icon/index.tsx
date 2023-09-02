@@ -11,11 +11,11 @@ try {
 }
 
 const Icon = (props: iconProps) => {
-  const { name, color, wrapperClassName, className, width, height, style: propStyle, spin = false, onClick } = props;
+  const { name, color, rootClassName, className, width, height, style: propStyle, spin = false, onClick } = props;
   const cls = classNames({
     [style[`${prefixClass}`]]: true,
     [style[`${prefixClass}-spin`]]: spin,
-    [wrapperClassName as string]: !!wrapperClassName,
+    [rootClassName as string]: !!rootClassName,
   });
   const symbolId = `#icon-${name}`;
   return (

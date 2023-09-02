@@ -1,5 +1,5 @@
 import { ReactNode, CSSProperties, ChangeEvent, KeyboardEvent } from 'react';
-import { ResizeObject } from '../../hooks/useElementResize';
+import { SizeInfo } from '../../hooks/useElementResize';
 export type InputProps = {
   id?: string;
   value?: string;
@@ -37,7 +37,7 @@ export type TextareaProps = {
   className?: string;
   style?: CSSProperties;
   onPressEnter?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
-  onResize?: (resizeObj: ResizeObject) => void;
+  onResize?: (size: SizeInfo) => void;
   onKeyDown?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
 } & Omit<React.HTMLAttributes<HTMLTextAreaElement>, 'onResize'>;
 

@@ -38,7 +38,6 @@ export const Checkbox = (props: CheckboxProps) => {
   useEffect(() => {
     if (groupValues && value !== undefined) {
       const checkedInGroup = groupValues.indexOf(value) > -1;
-      console.log('effect', groupValues, checkedInGroup, value);
       setChecked(checkedInGroup);
     }
   }, [groupValues, value]);
@@ -57,26 +56,32 @@ export const Checkbox = (props: CheckboxProps) => {
   });
 
   const handleClick: MouseEventHandler = (event) => {
+    // if (disabled || groupDisabled) {
+    //   return;
+    // }
+    // if (!('checked' in props)) {
+    //   setChecked(!checked);
+    // }
+    // if (inputRef.current) {
+    //   event.target = inputRef.current;
+    // }
+    onClick && typeof onClick === 'function' && onClick(event);
+    groupOnClick && typeof groupOnClick === 'function' && groupOnClick(event);
+  };
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     if (disabled || groupDisabled) {
       return;
     }
     if (!('checked' in props)) {
       setChecked(!checked);
     }
-    if (inputRef.current) {
-      event.target = inputRef.current;
-    }
-    onClick && typeof onClick === 'function' && onClick(event);
-    groupOnClick && typeof groupOnClick === 'function' && groupOnClick(event);
-  };
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     onChange && typeof onChange === 'function' && onChange(event);
     groupOnChange && typeof groupOnChange === 'function' && groupOnChange(event);
   };
 
   return (
-    <span className={wrapperCls} onClick={handleClick}>
+    <span className={wrapperCls}>
       <span className={checkboxCls} style={propStyle}>
         <input
           className={style[`${prefixClass}-input`]}
@@ -86,6 +91,7 @@ export const Checkbox = (props: CheckboxProps) => {
           value={value}
           name={name}
           ref={inputRef}
+          onClick={handleClick}
           onChange={handleChange}
           {...restProps}
         />
