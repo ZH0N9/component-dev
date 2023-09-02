@@ -8,12 +8,21 @@ import Radio from './components/Radio';
 import Checkbox from './components/Checkbox';
 import Input from './components/Input';
 import Switch from './components/Switch';
+import Affix from './components/Affix';
 import reportWebVitals from './reportWebVitals';
-import { check } from 'prettier';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
+    <br />
+    <br />
+    <br />
+    <br />
+    <Affix offsetTop={30}>
+      <Input.Textarea></Input.Textarea>
+    </Affix>
+    <br />
+    <br />
     <Switch
       loading
       defatultChecked={true}
@@ -24,7 +33,26 @@ root.render(
       checkedChildren={<span>checked</span>}
     ></Switch>
     <br />
-    <Input.Textarea
+    <div style={{ height: 1000, width: 200, background: 'orange' }}></div>
+    <Radio
+      //defaultChecked={true}
+      name="education"
+      value="radio"
+      onChange={(e) => {
+        console.log('radio change');
+      }}
+    >
+      Radio
+    </Radio>
+    <Checkbox
+      value="4"
+      onChange={() => {
+        console.log('change');
+      }}
+    >
+      477
+    </Checkbox>
+    {/* <Input.Textarea
       placeholder="dd"
       showCount
       autoSize={{ minRows: 2, maxRows: 3 }}
@@ -32,8 +60,8 @@ root.render(
         console.log(obj.width, obj.height);
       }}
       style={{ height: 78 }}
-    ></Input.Textarea>
-    <Input placeholder="dd" maxLength={10} prefix={<span>dd</span>} style={{ width: '100%', height: 40 }} />
+    ></Input.Textarea> */}
+    {/* <Input placeholder="dd" maxLength={10} prefix={<span>dd</span>} style={{ width: '100%', height: 40 }} /> */}
     {/* {/* <Checkbox.Group
       defaultValue={['1', '2']}
       options={[
@@ -41,13 +69,13 @@ root.render(
         { label: '2', value: '2' },
       ]}
     ></Checkbox.Group> */}
-    <Checkbox.Group
+    {/* <Checkbox.Group
       defaultValue={['3']}
       onChange={(checkedValues) => {
         console.log('checked values', checkedValues);
       }}
-    >
-      <div>
+    > */}
+    {/* <div>
         <Checkbox value="3">3</Checkbox>
       </div>
       <Checkbox value="4">477</Checkbox>
@@ -74,7 +102,7 @@ root.render(
       <Radio defaultChecked={false} name="education" value="radio2">
         Radio2
       </Radio>
-    </Radio.Group>
+    </Radio.Group> */}
     {/* 
     <input type="radio" name="sex" value="B" />
     <input type="radio" name="sex" value="A" />

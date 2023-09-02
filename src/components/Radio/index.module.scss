@@ -74,7 +74,7 @@ $radio-group-prefix: '.built-in-radio-group';
       height: 100%;
       z-index: 1;
       cursor: pointer;
-      pointer-events: none;
+      //pointer-events: none;
       opacity: 0;
     }
     & + * {

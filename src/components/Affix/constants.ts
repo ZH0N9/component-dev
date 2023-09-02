@@ -1,8 +1,12 @@
-import { ReactNode, CSSProperties } from "react";
-export interface AffixProps extends React.HTMLAttributes<HTMLDivElement>{
-     children?: ReactNode,
-     className?: string,
-     style?: CSSProperties,
+import classNames from 'classnames';
+import { ReactNode, CSSProperties } from 'react';
+export interface AffixProps {
+  children?: ReactNode;
+  rootClassName?: string;
+  className?: string;
+  offsetBottom?: number;
+  offsetTop?: number;
+  target?: HTMLElement;
 }
 
 export const prefixClass = 'built-in-affix';

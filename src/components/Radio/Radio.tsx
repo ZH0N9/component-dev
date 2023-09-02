@@ -65,28 +65,26 @@ export const Radio = (props: RadioProps) => {
   });
 
   const handleClick: MouseEventHandler = (event) => {
-    console.log('click');
+    onClick && typeof onClick === 'function' && onClick(event);
+    groupOnClick && typeof groupOnClick === 'function' && groupOnClick(event);
+  };
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     if (groupDisabled || disabled) {
       return;
     }
     if (!('checked' in props)) {
       setChecked(true);
     }
-    if (inputRef.current) {
-      const input = inputRef.current as HTMLInputElement;
-      event.target = input;
-    }
-    onClick && typeof onClick === 'function' && onClick(event);
-    groupOnClick && typeof groupOnClick === 'function' && groupOnClick(event);
-  };
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     onChange && typeof onChange === 'function' && onChange(event);
     groupOnChange && typeof groupOnChange === 'function' && groupOnChange(event);
   };
 
   return (
-    <span className={wrapperCls} onClick={handleClick}>
+    <span
+      className={wrapperCls}
+      // onClick={handleClick}
+    >
       <span className={radioCls}>
         <input
           type="radio"
@@ -94,6 +92,7 @@ export const Radio = (props: RadioProps) => {
           value={value}
           ref={inputRef}
           disabled={groupDisabled || disabled}
+          onClick={handleClick}
           onChange={handleChange}
           {...restProps}
         />
