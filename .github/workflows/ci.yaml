@@ -31,5 +31,5 @@ jobs:
       # Specify the target branch (optional)
       - uses: helaili/jekyll-action@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.DEPLOY_GIT_PAGE }}
           target_branch: 'gh-pages'
