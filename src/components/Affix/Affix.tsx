@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useLayoutEffect } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 import { AffixProps, prefixClass } from './constants';
 import { SizeInfo } from '../../hooks/useElementResize';
 import { throttle } from '../../utils';

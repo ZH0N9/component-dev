@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { SwitchProps, prefixClass } from './constants';
 import style from './index.module.scss';
 import classNames from 'classnames';
