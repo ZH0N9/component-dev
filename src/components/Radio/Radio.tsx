@@ -81,7 +81,7 @@ export const Radio = (props: RadioProps) => {
   };
 
   return (
-    <span
+    <label
       className={wrapperCls}
       // onClick={handleClick}
     >
@@ -99,6 +99,6 @@ export const Radio = (props: RadioProps) => {
         <span className={radioInnerCls}></span>
       </span>
       {children && <span>{children}</span>}
-    </span>
+    </label>
   );
 };

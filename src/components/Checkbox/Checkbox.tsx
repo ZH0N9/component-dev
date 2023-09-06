@@ -81,7 +81,7 @@ export const Checkbox = (props: CheckboxProps) => {
   };
 
   return (
-    <span className={wrapperCls}>
+    <label className={wrapperCls}>
       <span className={checkboxCls} style={propStyle}>
         <input
           className={style[`${prefixClass}-input`]}
@@ -98,6 +98,6 @@ export const Checkbox = (props: CheckboxProps) => {
         <span className={checkboxInnerCls}></span>
       </span>
       {children && <span>{children}</span>}
-    </span>
+    </label>
   );
 };

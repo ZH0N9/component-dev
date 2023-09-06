@@ -9,6 +9,7 @@ import Checkbox from './components/Checkbox';
 import Input from './components/Input';
 import Switch from './components/Switch';
 import Affix from './components/Affix';
+import Progress from './components/Progress';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -16,6 +17,7 @@ root.render(
   <React.StrictMode>
     <br />
     <br />
+    <Progress percentage={80} strokeColor={{ from: '#108ee9', to: '#87d068' }}></Progress>
     <br />
     <br />
     <br />

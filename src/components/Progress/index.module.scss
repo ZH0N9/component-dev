@@ -1,0 +1,72 @@
+$progress-prefix: '.built-in-progress';
+$progress-prefix-small: '.built-in-progress-small';
+$progress-prefix-line: '.built-in-progress-line';
+$progress-prefix-circle: '.built-in-progress-line';
+$progress-prefix-inner: '.built-in-progress-inner';
+$progress-prefix-bg: '.built-in-progress-bg';
+$progress-prefix-info: '.built-in-progress-info';
+
+#{$progress-prefix} {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  position: relative;
+  line-height: 1;
+  white-space: nowrap;
+  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  #{$progress-prefix-inner} {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+    overflow: hidden;
+    vertical-align: middle;
+    background-color: rgba(0, 0, 0, 0.06);
+    border-radius: 100px;
+    #{$progress-prefix-bg} {
+      position: relative;
+      background-color: orange;
+      border-radius: 100px;
+      transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+    }
+  }
+  #{$progress-prefix-info} {
+    display: inline-block;
+    width: 2em;
+    margin-inline-start: 8px;
+    color: rgba(0, 0, 0, 0.88);
+    line-height: 1;
+    white-space: nowrap;
+    text-align: start;
+    vertical-align: middle;
+    word-break: normal;
+  }
+}
+#{$progress-prefix-line} {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  font-size: 14px;
+  margin-inline-end: 8px;
+  margin-bottom: 8px;
+  #{$progress-prefix-inner} {
+    height: 8px;
+  }
+  &#{$progress-prefix-small} {
+    font-size: 12px;
+    height: 6px;
+    #{$progress-prefix-inner} {
+      height: 6px;
+    }
+  }
+}
