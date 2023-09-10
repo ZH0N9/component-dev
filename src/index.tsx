@@ -17,7 +17,13 @@ root.render(
   <React.StrictMode>
     <br />
     <br />
-    <Progress percentage={80} strokeColor={{ from: '#108ee9', to: '#87d068' }}></Progress>
+    <Progress
+      percentage={80}
+      strokeColor={{ from: '#108ee9', to: '#87d068' }}
+      success={{ percent: 30, strokeColor: 'red' }}
+    ></Progress>
+    <Progress percentage={80} strokeColor={{ from: '#108ee9', to: '#87d068' }} size={'small'}></Progress>
+    <Progress percentage={80} strokeColor={{ from: '#108ee9', to: '#87d068' }} size={'big'}></Progress>
     <br />
     <br />
     <br />

@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 
 export enum ProgressTypeEnum {
   line = 'line',
@@ -12,6 +12,7 @@ export enum ProgressStrokeLineCapTypeEnum {
 export enum ProgressSizeEnum {
   default = 'default',
   small = 'small',
+  big = 'big',
 }
 export type ProgressStrokeColor = {
   from: string;
@@ -22,11 +23,12 @@ export type ProgressSizeObj = {
   width: number;
   height: number;
 };
-export type ProgressSizeType = 'default' | 'small';
+export type ProgressSizeType = 'default' | 'small' | 'big';
 export type ProgressType = 'line' | 'circle';
 export type ProgressStrokeLineCapType = 'round' | 'square' | 'butt';
 
-export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ProgressProps {
+  format?: (percent: number, successPercent?: number) => ReactNode;
   percentage?: number;
   showInfo?: boolean;
   strokeColor?: string | ProgressStrokeColor;
@@ -35,6 +37,7 @@ export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   type?: ProgressType;
   size?: ProgressSizeType | ProgressSizeObj;
   strokeLinecap?: ProgressStrokeLineCapType;
+  success?: { percent: number; strokeColor?: string };
   style?: CSSProperties;
 }
 
