@@ -9,6 +9,7 @@ import Checkbox from './components/Checkbox';
 import Input from './components/Input';
 import Switch from './components/Switch';
 import Affix from './components/Affix';
+import Progress from './components/Progress';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -16,6 +17,16 @@ root.render(
   <React.StrictMode>
     <br />
     <br />
+    <Progress percentage={30} strokeColor={'linear-gradient(#e66465, #9198e5)'} type="circle"></Progress>
+    <Progress percentage={20} size={'small'} strokeColor={'linear-gradient(#e66465, #9198e5)'} type="circle"></Progress>
+    <Progress percentage={50} size={'big'} strokeColor={'linear-gradient(#e66465, #9198e5)'} type="circle"></Progress>
+    <Progress
+      percentage={80}
+      strokeColor={{ from: '#108ee9', to: '#87d068' }}
+      success={{ percent: 30, strokeColor: 'red' }}
+    ></Progress>
+    <Progress percentage={80} strokeColor={{ from: '#108ee9', to: '#87d068' }} size={'small'}></Progress>
+    <Progress percentage={80} strokeColor={{ from: '#108ee9', to: '#87d068' }} size={'big'}></Progress>
     <br />
     <br />
     <br />
