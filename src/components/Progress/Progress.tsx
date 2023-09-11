@@ -8,19 +8,21 @@ import {
 import style from './index.module.scss';
 import classNames from 'classnames';
 import { CSSProperties, useMemo } from 'react';
+
+const CIRCLE_NONE = -135;
+const CIRCLE_FULL = 45;
 export const Progress = (props: ProgressProps) => {
   const {
     format = (percentage) => `${percentage}%`,
     percentage = 0,
     strokeColor,
-    trailColor = 'rgba(0, 0, 0, 0.06)',
+    trailColor = 'rgb(239 239 239)',
     showInfo = true,
     type = 'line',
     className,
     size = 'default',
     strokeLinecap = ProgressStrokeLineCapTypeEnum.round,
     success,
-    ...restProps
   } = props;
   const wrapperClassName = classNames({
     [style[`${prefixClass}`]]: true,
@@ -41,7 +43,7 @@ export const Progress = (props: ProgressProps) => {
     }
     return progressInnerStyle;
   }, [size, trailColor]);
-  const progressStyles = useMemo(() => {
+  const progressLineStyles = useMemo(() => {
     const width = Math.round(percentage) < 100 ? `${Math.round(percentage)}%` : `100%`;
     const background = strokeColor
       ? {
@@ -60,23 +62,80 @@ export const Progress = (props: ProgressProps) => {
     };
   }, [percentage, strokeColor]);
 
-  return (
-    <div className={wrapperClassName}>
-      <div className={progressClassName} style={progressInnerStyles}>
-        <div className={style[`${prefixClass}-bg`]} style={progressStyles}></div>
-        {success && typeof success === 'object' && (
-          <div
-            className={style[`${prefixClass}-success-bg`]}
-            style={{
-              width: success.percent < 100 ? `${success.percent}%` : `100%`,
-              backgroundColor: success.strokeColor ? success.strokeColor : undefined,
-            }}
-          ></div>
+  const progressCircleStyles = useMemo(() => {
+    let leftRotation = CIRCLE_NONE;
+    let rightRotation = CIRCLE_NONE;
+    let colorLeft = 'orange';
+    let colorRight = 'orange';
+    if (strokeColor && typeof strokeColor === 'string') {
+      colorLeft = strokeColor;
+      colorRight = strokeColor;
+    } else if (strokeColor && typeof strokeColor === 'object') {
+      console.log('d');
+      colorRight = `linear-gradient(to left, ${strokeColor.from} , ${strokeColor.to})`;
+      console.log('colorRight : ', colorRight);
+      colorLeft = `linear-gradient(to left, ${strokeColor.from} , ${strokeColor.to})`;
+      console.log('colorLeft : ', colorLeft);
+    }
+    if (percentage <= 50) {
+      rightRotation += (percentage / 100) * 360;
+    } else {
+      rightRotation = CIRCLE_FULL;
+      leftRotation += ((percentage - 50) / 100) * 360;
+    }
+    return {
+      '--leftRotation': `rotate(${leftRotation}deg)`,
+      '--rightRotation': `rotate(${rightRotation}deg)`,
+      '--backgroundColorLeft': colorLeft,
+      '--backgroundColorRight': colorRight,
+    } as CSSProperties;
+  }, [percentage, strokeColor]);
+
+  const progressView = () => {
+    const progressLineView = (
+      <>
+        <div className={progressClassName} style={progressInnerStyles}>
+          <div className={style[`${prefixClass}-bg`]} style={progressLineStyles}></div>
+          {success && typeof success === 'object' && (
+            <div
+              className={style[`${prefixClass}-success-bg`]}
+              style={{
+                width: success.percent < 100 ? `${success.percent}%` : `100%`,
+                backgroundColor: success.strokeColor ? success.strokeColor : undefined,
+              }}
+            ></div>
+          )}
+        </div>
+        {showInfo && (
+          <span className={style[`${prefixClass}-info`]}>{percentage < 100 ? format(percentage) : format(100)}</span>
         )}
-      </div>
-      {showInfo && (
-        <span className={style[`${prefixClass}-info`]}>{percentage < 100 ? format(percentage) : format(100)}</span>
-      )}
-    </div>
-  );
+      </>
+    );
+
+    const progressCircleView = (
+      <>
+        <div className={progressClassName} style={progressInnerStyles}>
+          <div className={style[`${prefixClass}-circle-left-bg-wrapper`]} style={progressCircleStyles}>
+            <div className={style[`${prefixClass}-circle-left-bg`]}></div>
+          </div>
+          <div className={style[`${prefixClass}-circle-right-bg-wrapper`]} style={progressCircleStyles}>
+            <div className={style[`${prefixClass}-circle-right-bg`]}></div>
+          </div>
+          {showInfo && size !== ProgressSizeEnum.small && (
+            <span className={style[`${prefixClass}-info`]}>{percentage < 100 ? format(percentage) : format(100)}</span>
+          )}
+        </div>
+      </>
+    );
+    switch (type) {
+      case ProgressTypeEnum.line:
+        return progressLineView;
+      case ProgressTypeEnum.circle:
+        return progressCircleView;
+      default:
+        return progressLineView;
+    }
+  };
+
+  return <div className={wrapperClassName}>{progressView()}</div>;
 };

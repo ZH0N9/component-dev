@@ -5,7 +5,11 @@ $progress-prefix-stroke-round: '.built-in-progress-stroke-round';
 $progress-prefix-stroke-squre: '.built-in-progress-stroke-sqare';
 $progress-prefix-stroke-butt: '.built-in-progress-stroke-butt';
 $progress-prefix-line: '.built-in-progress-line';
-$progress-prefix-circle: '.built-in-progress-line';
+$progress-prefix-circle: '.built-in-progress-circle';
+$progress-prefix-circle-left-bg-wrapper: '.built-in-progress-circle-left-bg-wrapper';
+$progress-prefix-circle-left-bg: '.built-in-progress-circle-left-bg';
+$progress-prefix-circle-right-bg-wrapper: '.built-in-progress-circle-right-bg-wrapper';
+$progress-prefix-circle-right-bg: '.built-in-progress-circle-right-bg';
 $progress-prefix-inner: '.built-in-progress-inner';
 $progress-prefix-bg: '.built-in-progress-bg';
 $progress-prefix-success-bg: '.built-in-progress-success-bg';
@@ -90,6 +94,165 @@ $progress-prefix-info: '.built-in-progress-info';
     height: 20px;
     #{$progress-prefix-inner} {
       height: 20px;
+    }
+  }
+}
+#{$progress-prefix-circle} {
+  position: relative;
+  font-size: 15px;
+  #{$progress-prefix-inner} {
+    width: 60px;
+    height: 60px;
+    box-sizing: border-box;
+    background-color: transparent;
+    &::before {
+      content: '';
+      width: 100%;
+      border-radius: 50%;
+      border: 5px solid var(--trailColor);
+    }
+    #{$progress-prefix-circle-left-bg},
+    #{$progress-prefix-circle-right-bg} {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 200%;
+      border-radius: 50%;
+      border: 5px solid transparent;
+      box-sizing: border-box;
+    }
+    #{$progress-prefix-circle-left-bg-wrapper} {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 50%;
+      overflow: hidden;
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 200%;
+        border-radius: 50%;
+        border: 5px solid transparent;
+        border-right-color: var(--trailColor);
+        border-top-color: var(--trailColor);
+        transform: var(--leftRotation);
+        box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      #{$progress-prefix-circle-left-bg} {
+        left: 0;
+        // border-left-color: var(--borderColor);
+        // border-bottom-color: var(--borderColor);
+        // transform: var(--leftRotation);
+        background: linear-gradient(to right, white, white), var(--backgroundColorLeft);
+        background-clip: padding-box, border-box;
+        background-origin: padding-box, border-box;
+      }
+    }
+    #{$progress-prefix-circle-right-bg-wrapper} {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      bottom: 0;
+      right: 0;
+      overflow: hidden;
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 200%;
+        right: 0;
+        border-radius: 50%;
+        border: 5px solid transparent;
+        border-left-color: var(--trailColor);
+        border-bottom-color: var(--trailColor);
+        transform: var(--rightRotation);
+        box-sizing: border-box;
+      }
+      #{$progress-prefix-circle-right-bg} {
+        right: 0;
+        background: linear-gradient(to right, white, white), var(--backgroundColorRight);
+        background-clip: padding-box, border-box;
+        background-origin: padding-box, border-box;
+        // border-right-color: var(--borderColor);
+        // border-top-color: var(--borderColor);
+        // transform: var(--rightRotation);
+      }
+    }
+  }
+  #{$progress-prefix-info} {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    text-align: center;
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      segoe ui,
+      Roboto,
+      helvetica neue,
+      Arial,
+      noto sans,
+      sans-serif,
+      apple color emoji,
+      segoe ui emoji,
+      segoe ui symbol,
+      noto color emoji;
+    font-weight: 500;
+  }
+  &#{$progress-prefix-small} {
+    #{$progress-prefix-inner} {
+      width: 20px;
+      height: 20px;
+      font-size: 9px;
+      &::before {
+        border-width: 3px;
+      }
+      #{$progress-prefix-circle-left-bg},
+      #{$progress-prefix-circle-right-bg} {
+        border-width: 3px;
+      }
+      #{$progress-prefix-circle-left-bg-wrapper} {
+        &::after {
+          border-width: 3px;
+        }
+      }
+      #{$progress-prefix-circle-right-bg-wrapper} {
+        &::after {
+          border-width: 3px;
+        }
+      }
+    }
+  }
+  &#{$progress-prefix-big} {
+    #{$progress-prefix-inner} {
+      width: 120px;
+      height: 120px;
+      font-size: 24px;
+      &::before {
+        border-width: 7px;
+      }
+      #{$progress-prefix-circle-left-bg},
+      #{$progress-prefix-circle-right-bg} {
+        border-width: 7px;
+      }
+      #{$progress-prefix-circle-left-bg-wrapper} {
+        &::after {
+          border-width: 7px;
+        }
+      }
+      #{$progress-prefix-circle-right-bg-wrapper} {
+        &::after {
+          border-width: 7px;
+        }
+      }
     }
   }
 }

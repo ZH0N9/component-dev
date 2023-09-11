@@ -17,6 +17,9 @@ root.render(
   <React.StrictMode>
     <br />
     <br />
+    <Progress percentage={30} strokeColor={'linear-gradient(#e66465, #9198e5)'} type="circle"></Progress>
+    <Progress percentage={20} size={'small'} strokeColor={'linear-gradient(#e66465, #9198e5)'} type="circle"></Progress>
+    <Progress percentage={50} size={'big'} strokeColor={'linear-gradient(#e66465, #9198e5)'} type="circle"></Progress>
     <Progress
       percentage={80}
       strokeColor={{ from: '#108ee9', to: '#87d068' }}
