@@ -1,12 +1,12 @@
-import { MenuProps, prefixClass } from "./constants"; 
-import style from "./index.module.scss"; 
-import classNames from "classnames"; 
-export const Menu = (props: MenuProps) => { 
-  const { children, className, ...restProps } = props; 
-  const cls = classNames({[style[`${prefixClass}`]]:true, [className as string]:!!className }); 
-  return (
-    <div className={cls} {...restProps}>
-      {children}
-    </div>
-  ) 
-} 
+import { MenuProps, prefixClass } from './constants';
+import { useItems } from './hooks/useItems';
+import styles from './index.module.scss';
+import classNames from 'classnames';
+export const Menu = (props: MenuProps) => {
+  const { style, mode, items, children } = props;
+  const cls = classNames({ [styles[`${prefixClass}`]]: true });
+  const mergedChildren = useItems(items) || children;
+  console.log('mergedChildren: ', mergedChildren);
+
+  return <ul className={cls}>{mergedChildren}</ul>;
+};

@@ -71,11 +71,8 @@ export const Progress = (props: ProgressProps) => {
       colorLeft = strokeColor;
       colorRight = strokeColor;
     } else if (strokeColor && typeof strokeColor === 'object') {
-      console.log('d');
       colorRight = `linear-gradient(to left, ${strokeColor.from} , ${strokeColor.to})`;
-      console.log('colorRight : ', colorRight);
       colorLeft = `linear-gradient(to left, ${strokeColor.from} , ${strokeColor.to})`;
-      console.log('colorLeft : ', colorLeft);
     }
     if (percentage <= 50) {
       rightRotation += (percentage / 100) * 360;

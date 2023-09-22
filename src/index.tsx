@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 // import Button from './components/Button';
-// import Icon from './components/Icon';
+import Icon from './components/Icon';
 // import Tag from './components/Tag';
+import Menu from './components/Menu';
 import Radio from './components/Radio';
 import Checkbox from './components/Checkbox';
 import Input from './components/Input';
@@ -15,6 +16,34 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
+    <br />
+    <Menu
+      items={[
+        {
+          label: '1',
+          type: 'group',
+          children: [
+            { label: '1.1', id: '1.1', title: '1.1' },
+            { label: '1.2', id: '1.2', title: '1.2' },
+          ],
+        },
+        {
+          label: '2',
+          children: [
+            { label: '2.1', id: '2.1', title: '2.1' },
+            { label: '2.2', id: '2.2', title: '2.2' },
+          ],
+        },
+      ]}
+    ></Menu>
+    <br />
+    <Menu.SubMenu id="1" label={<span>1</span>}></Menu.SubMenu>
+    <Menu.SubMenu id="1" label={<span>1</span>} disabled></Menu.SubMenu>
+    <br />
+    <Menu.MenuDivider type="divider" dashed></Menu.MenuDivider>
+    <Menu.MenuItem key={'1'} id="1"></Menu.MenuItem>
+    <Menu.MenuItem disabled key="2" id="2" icon={<Icon name="close" className="test-class" />}></Menu.MenuItem>
+    <Menu.MenuGroup type="group" label={<span>group</span>}></Menu.MenuGroup>
     <br />
     <br />
     <Progress percentage={30} strokeColor={'linear-gradient(#e66465, #9198e5)'} type="circle"></Progress>
