@@ -26,7 +26,7 @@ const Button = (props: buttonProps) => {
   });
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
-    if (disabled) {
+    if (disabled || loading) {
       event.preventDefault();
       return;
     }
