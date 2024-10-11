@@ -1,0 +1,53 @@
+.is-fixed-size-list{
+    width: var(--containerWidth);
+    height: var(--containerHeight);
+    position: relative;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid gray;
+    overflow-y: auto;
+    scrollbar-color: gray transparent;
+    scrollbar-width: auto;
+    &::-webkit-scrollbar{
+      width: 8px;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 40px;
+      background-color: var(--color-component-scrollbar);
+    }
+   .is-fixed-size-list-content{
+    height: var(--contentHeight);
+    width: 100%;
+    .is-fixed-size-list-item{
+        height: var(--itemHeight);
+    }
+   }
+}
+
+.is-variable-size-list{
+    width: var(--containerWidth);
+    height: var(--containerHeight);
+    position: relative;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid gray;
+    overflow-y: auto;
+    scrollbar-color: gray transparent;
+    scrollbar-width: auto;
+    &::-webkit-scrollbar{
+      width: 8px;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 40px;
+      background-color: var(--color-component-scrollbar);
+    }
+   .is-variable-size-list-content{
+    height: var(--contentHeight);
+    width: 100%;
+    .is-variable-size-list-item{
+        height: var(--itemHeight);
+    }
+   }
+}
